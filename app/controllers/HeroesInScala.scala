@@ -20,7 +20,7 @@ class HeroesInScala @Inject()(cc: ControllerComponents) extends AbstractControll
   }
 
   def command(cmd: String) = Action {
-    val inputsplit = cmd.split(",")
+  /*  val inputsplit = cmd.split(",")
     var typ = UIEvent.BuyMelee
     var input = inputsplit(0)
     input match {
@@ -29,9 +29,32 @@ class HeroesInScala @Inject()(cc: ControllerComponents) extends AbstractControll
     case "MoveDown" => gameController.action(UIEvent.MoveDown)
     case "MoveRight" => gameController.action(UIEvent.MoveRight)
     case "b" => gameController.openShop(typ, inputsplit(1).toInt)
-  }
+    }
 
     Ok(gameController.playgroundToString)
+    */
+   Ok(views.html.heroes(gameController))
+
+  }
+
+  def moveUp = Action {
+    gameController.action(UIEvent.MoveUp)
+    Ok(views.html.heroes(gameController))
+  }
+
+  def moveLeft = Action {
+    gameController.action(UIEvent.MoveLeft)
+    Ok(views.html.heroes(gameController))
+  }
+
+  def moveRight = Action {
+    gameController.action(UIEvent.MoveRight)
+    Ok(views.html.heroes(gameController))
+  }
+
+  def moveDown = Action {
+    gameController.action(UIEvent.MoveDown)
+    Ok(views.html.heroes(gameController))
   }
 
   def heroes = Action {

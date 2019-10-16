@@ -3,12 +3,20 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.HeroesInScala.heroes
+GET     /                           controllers.HeroesInScala.moveUp
 # An example controller showing how to use dependency injection
 
 GET     /about                      controllers.HeroesInScala.about
 
 GET     /command                    controllers.HeroesInScala.command(cmd: String)
+
+GET     /buttonUp                   controllers.HeroesInScala.moveUp
+
+GET     /buttonLeft                   controllers.HeroesInScala.moveLeft
+
+GET     /buttonRight                   controllers.HeroesInScala.moveRight
+
+GET     /buttonDown                   controllers.HeroesInScala.moveDown
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
