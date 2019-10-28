@@ -1,20 +1,52 @@
 @(controller:de.htwg.se.heroes.controllerComponent.ControllerInterface)
+@(cell:de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.Cell.HeroCell)
+@qwefewfwe = @{5}
+@cellType(x:Int, y:Int)= @{
+    val cell = controller.getMatrixCell(x,y)
+    cell match {
+        case f:HeroCell => "hero.png"
+        case Leer() => "grass.jpg"
+        case Stop() => "berg.jpg"
+        case GoldCell() => "gold.jpg"
+        case f: EnemyCell => "drake.jpg"
+        case f: MeleeSoldier => "lich.jpg"
+        case f: RangeSoldier => "gold.jpg"
+    }
+    }
 
-
+@main("heroes"){
 <html>
     <head>
+        <div class="header">
+        </div>
+        <div class="topnav">
+            <a href="#">Link</a>
+            <a href="#">Link</a>
+            <a href="#">Link</a>
+        </div>e21e
     </head>
     <body>
         <pre style="word-wrap: break-word; white-space: pre-wrap;">@controller.playgroundToString
         </pre>
+        <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/wui.css")"/>
+        <a href="http://localhost:9000/buttonUp"><button class="button1" type="submit">MoveUp</button></a>
+        <a href="http://localhost:9000/buttonDown"><button class="button1" type="submit">MoveDown</button></a>
+        <a href="http://localhost:9000/buttonLeft"><button class="button1" type="submit">MoveLeft</button></a>
+        <a href="http://localhost:9000/buttonRight"><button class="button1" type="submit">MoveRight</button></a>
+        <a href="http://localhost:9000/about"><button class="button1" type="submit">About</button></a>
+        <br>
+        <div class="grid-container">
+            @for(rowIndex <- 0 until 9) {
+               @for(columnIndex <-0 until 9){
+                   <div class="grid-item">
+                       @{cellType(rowIndex,columnIndex)}
+                   </div>
+                }
+            }
+        </div>
 
-        <button type="submit"><a href="http://localhost:9000/buttonUp">MoveUp</a></button>
-        <button type="submit"><a href="http://localhost:9000/buttonDown">MoveDown</a></button>
-        <button type="submit"><a href="http://localhost:9000/buttonLeft">MoveLeft</a></button>
-        <button type="submit"><a href="http://localhost:9000/buttonRight">MoveRight</a></button>
-        <button type="submit"><a href="http://localhost:9000/about">About</a></button>
+
     </body>
 
 </html>
-
-
+}
