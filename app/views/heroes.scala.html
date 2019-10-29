@@ -1,16 +1,19 @@
 @(controller:de.htwg.se.heroes.controllerComponent.ControllerInterface)
-@(cell:de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.Cell.HeroCell)
-@qwefewfwe = @{5}
+
 @cellType(x:Int, y:Int)= @{
-    val cell = controller.getMatrixCell(x,y)
-    cell match {
+    import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.HeroCell
+    import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.Leer
+    import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.Stop
+    import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.GoldCell
+    import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.EnemyCell
+    controller.getCell(x,y) match {
         case f:HeroCell => "hero.png"
         case Leer() => "grass.jpg"
         case Stop() => "berg.jpg"
         case GoldCell() => "gold.jpg"
         case f: EnemyCell => "drake.jpg"
-        case f: MeleeSoldier => "lich.jpg"
-        case f: RangeSoldier => "gold.jpg"
+        //case f: MeleeSoldier => "lich.jpg"
+        //case f: RangeSoldier => "gold.jpg"
     }
     }
 
@@ -20,32 +23,28 @@
         <div class="header">
         </div>
         <div class="topnav">
-            <a href="#">Link</a>
-            <a href="#">Link</a>
-            <a href="#">Link</a>
-        </div>e21e
+            <a href="http://localhost:9000/about">About</a>
+        </div>
     </head>
     <body>
-        <pre style="word-wrap: break-word; white-space: pre-wrap;">@controller.playgroundToString
-        </pre>
         <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/wui.css")"/>
-        <a href="http://localhost:9000/buttonUp"><button class="button1" type="submit">MoveUp</button></a>
-        <a href="http://localhost:9000/buttonDown"><button class="button1" type="submit">MoveDown</button></a>
-        <a href="http://localhost:9000/buttonLeft"><button class="button1" type="submit">MoveLeft</button></a>
-        <a href="http://localhost:9000/buttonRight"><button class="button1" type="submit">MoveRight</button></a>
-        <a href="http://localhost:9000/about"><button class="button1" type="submit">About</button></a>
         <br>
         <div class="grid-container">
             @for(rowIndex <- 0 until 9) {
                @for(columnIndex <-0 until 9){
                    <div class="grid-item">
-                       @{cellType(rowIndex,columnIndex)}
+                      <img src = @routes.Assets.versioned("images/" + {cellType(columnIndex,rowIndex)}) >
                    </div>
                 }
             }
         </div>
-
-
+        <br>
+        <div class="buttons-tray">
+        <a href="http://localhost:9000/buttonUp"><button class="button1" type="submit">MoveUp</button></a>
+        <a href="http://localhost:9000/buttonDown"><button class="button1" type="submit">MoveDown</button></a>
+        <a href="http://localhost:9000/buttonLeft"><button class="button1" type="submit">MoveLeft</button></a>
+        <a href="http://localhost:9000/buttonRight"><button class="button1" type="submit">MoveRight</button></a>
+        </div>
     </body>
 
 </html>
