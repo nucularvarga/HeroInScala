@@ -4,21 +4,23 @@
         <style>
                 h1 {font:20px "Helvetica Nueue",sans-serif;}
         </style>
-        <p>
+            <figure class="figure">
             <a href="https://en.wikipedia.org/wiki/Heroes_of_Might_and_Magic:_A_Strategic_Quest">
             <img src=@routes.Assets.versioned("images/heroes.png")>
             </a>
-        </p>
-        <h1>
+            </figure>
+        <h1 class = "display-4">
             Historic Background
         </h1>
-        <br>
-        <table border=5 style="width:80%" >
+
+        <table class = "table table-hover">
+            <thead class = "thead-dark">
             <tr>
                 <th>  <b>Name </b> </th>
                 <th>  <b>Release Date </b></th>
                 <th>  <b>Compatibility </b> </th>
             </tr>
+            </thead>
             <tr>
                 <td>Heroes:Might and Magic</td>
                 <td>1995</td>
@@ -52,19 +54,19 @@
         </table>
 
         <br>
-        <h1>
+        <h1 class = "display-4">
           Gameplay
         </h1>
-        <p>
+        <p class="lead">
             Heroes of Might and Magic takes place in a medieval fantasy world filled with creatures frequently associated with myth and legend. These creatures compose the military forces (troops) with which the player attempts to conquer opponents. The player leads generals through the game world at the head of armies of troops. These generals, called <b>"heroes,"</b> provide a means to explore, attack, defeat, and acquire, the four basic principles in the game. The ultimate goal of the game is usually to capture all enemy castles and defeat all enemy heroes. However, the game comes with many different play scenarios, and some of these scenarios have unique victory conditions, such as accumulating a certain amount of gold, or finding a particular artifact.[citation needed]
 
             There are four different classes of heroes and castles, each with their own units and strengths/weaknesses. The two "might" classes, Knight and Barbarian, earn skill points in attack or defense more often than in spell power or knowledge. The two <b>"magic"</b> classes, Sorceress and Warlock, earn skill points in spell power or knowledge more often than in attack or defense. There is also a neutral, "wandering" class of troops, including Rogues, Nomads, Ghosts (the only one that can not be hired) and Genies.
         </p>
         <br>
-        <h1>
+        <h1 class = "display-4">
             About Heroes Universe
         </h1>
-        <p>
+        <p class="lead">
             Up until Heroes of Might and Magic V &reg;
             , the Heroes series took place in the same fictional universe as the Might and Magic series, and later Might and Magic installments heavily referenced the games, with some taking place in the same world.
             Heroes I and II take place on the planet of Enroth, on a northerly continent of the same name, and chronicle the adventures of the Ironfist dynasty. The protagonist of Heroes I is Lord Morglin Ironfist, a knight who discovers a portal to the realm of Enroth while fleeing from his throne's usurpers, and goes on to conquer and dominate the continent, establishing a unified kingdom and a new rule.
@@ -72,5 +74,9 @@
             The storylines of Heroes III and the Heroes Chronicles shift focus to the Gryphonheart dynasty on the southern continent of Antagarich, and introduces the Kreegan as playable characters and enemies. In Heroes III, Queen Catherine Gryphonheart, King Roland's wife, is called home to attend her father's funeral, to discover Antagarich being torn apart by various factions. Heroes III's expansions build on the setting with more prominent character development, featuring new and old heroes from the series in differing roles.
             The events preceding Heroes IV precipitated the destruction of Enroth due to a clash between Armageddon's Blade and the Sword of Frost. The ensuing destruction brings about portals leading to another world, Axeoth, through which many characters escape. Heroes IV's campaigns focus on the scattered survivors from Enroth and Antagarich as they form new kingdoms and alliances in the new world.
         </p>
-        <button type="submit"><a href="http://localhost:9000/buttonUp">Back</a></button>
+        <button type="button" class="btn btn-dark">
+            Back
+            <a href="http://localhost:9000/buttonUp">
+            </a>
+        </button>
     }
