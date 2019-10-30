@@ -6,7 +6,7 @@
     import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.Stop
     import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.GoldCell
     import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.EnemyCell
-    controller.getCell(x,y) match {
+    controller.getMatrixCell(x,y) match {
         case f:HeroCell => "hero.png"
         case Leer() => "grass.jpg"
         case Stop() => "berg.jpg"
@@ -44,6 +44,13 @@
         <a href="http://localhost:9000/buttonDown"><button class="button1" type="submit">MoveDown</button></a>
         <a href="http://localhost:9000/buttonLeft"><button class="button1" type="submit">MoveLeft</button></a>
         <a href="http://localhost:9000/buttonRight"><button class="button1" type="submit">MoveRight</button></a>
+        </div>
+        <br>
+        <div class="buttons-tray">
+            <a href="http://localhost:9000/lookUp"><button class="button1" type="submit">LookUp</button></a>
+            <a href="http://localhost:9000/lookDown"><button class="button1" type="submit">LookDown</button></a>
+            <a href="http://localhost:9000/lookLeft"><button class="button1" type="submit">LookLeft</button></a>
+            <a href="http://localhost:9000/lookRight"><button class="button1" type="submit">LookRight</button></a>
         </div>
     </body>
 

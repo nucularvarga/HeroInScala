@@ -11,7 +11,7 @@ import de.htwg.se.heroes.controllerComponent.controllerBaseImpl.gamemode.UIEvent
 
 @Singleton
 class HeroesInScala @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
-  val gameController = main.controller
+  var gameController = main.controller
   gameController.init("2")
   def HeroesAsText =  gameController.playgroundToString //+ GameStatus.message(gameController.gameStatus)
 
@@ -54,6 +54,26 @@ class HeroesInScala @Inject()(cc: ControllerComponents) extends AbstractControll
 
   def moveDown = Action {
     gameController.action(UIEvent.MoveDown)
+    Ok(views.html.heroes(gameController))
+  }
+
+  def lookUp = Action {
+    gameController.show(UIEvent.MoveUp)
+    Ok(views.html.heroes(gameController))
+  }
+
+  def lookLeft = Action {
+    gameController.show(UIEvent.MoveLeft)
+    Ok(views.html.heroes(gameController))
+  }
+
+  def lookRight = Action {
+    gameController.show(UIEvent.MoveRight)
+    Ok(views.html.heroes(gameController))
+  }
+
+  def lookDown = Action {
+    gameController.show(UIEvent.MoveDown)
     Ok(views.html.heroes(gameController))
   }
 
