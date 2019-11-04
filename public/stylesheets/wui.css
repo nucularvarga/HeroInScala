@@ -39,6 +39,9 @@
     background-color: #ddd;
     color: black;
 }
+.topnav .a:focus {
+    border-bottom-color: rgba(255, 255, 255, .25);
+}
 .grid-container {
     display: inline-grid;
     padding: 0px 0px 0px 10px;
@@ -57,5 +60,7 @@
     padding: 10px;
 }
 
+
+/*footer*/
 
 
