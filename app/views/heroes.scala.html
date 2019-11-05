@@ -22,52 +22,72 @@
     <head>
     </head>
     <body>
-        <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/wui.css")"/>
-        <br>
-        <span class="border border-success">
-        <div class="container">
-            @for(rowIndex <- 0 until 9) {
-                <div class="row">
-               @for(columnIndex <-0 until 9){
-                   <div class="col">
-                      <img src = @routes.Assets.versioned("images/" + {cellType(columnIndex,rowIndex)}) >
-                   </div>
-                }
+        <div class="container-fluid">
+            <div class="row flex">
+                <div class="col-sm-6">
+                    <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/wui.css")"/>
+                    <br>
+                    <div class = "playField">
+                        <div class = "container-fluid">
+                            @for(rowIndex <- 0 until 9) {
+                                <div class="row flex">
+                               @for(columnIndex <-0 until 9){
+                                   <div class="row row-no-gutters">
+                                        <div class="col-md-1">
+                                          <img src = @routes.Assets.versioned("images/" + {cellType(columnIndex,rowIndex)}) >
+                                        </div>
+                                   </div>
+                                }
+                                </div>
+                            }
+                        </div>
+                    </div>
                 </div>
-            }
-        </div>
-        </span>
-        <br>
-        <div class="card">
-            <div class="card-body">
-                <div class="col-4 mx-auto text-center">
-                <h6 class="card-subtitle mb-2 text-muted">Move Hero</h6>
-                </div>
-            </div>
-                <div class="buttons-tray">
-                    <a href="http://localhost:9000/buttonUp"><button class="btn btn-secondary" type="submit">MoveUp</button></a>
-                    <a href="http://localhost:9000/buttonDown"><button class="btn btn-secondary" type="submit">MoveDown</button></a>
-                    <a href="http://localhost:9000/buttonLeft"><button class="btn btn-secondary" type="submit">MoveLeft</button></a>
-                    <a href="http://localhost:9000/buttonRight"><button class="btn btn-secondary" type="submit">MoveRight</button></a>
-                </div>
-        </div>
-        <br>
-        <div class="card">
-            <div class="card-body">
-                <div class="col-4 mx-auto text-center">
-                <h6 class="card-subtitle mb-2 text-muted">Move Camera</h6>
-                </div>
-            </div>
-                    <div class="buttons-tray">
-                        <a href="http://localhost:9000/lookUp"><button class="btn btn-secondary" type="submit">LookUp</button></a>
-                        <a href="http://localhost:9000/lookDown"><button class="btn btn-secondary" type="submit">LookDown</button></a>
-                        <a href="http://localhost:9000/lookLeft"><button class="btn btn-secondary" type="submit">LookLeft</button></a>
-                        <a href="http://localhost:9000/lookRight"><button class="btn btn-secondary" type="submit">LookRight</button></a>
+                    <div class="col-sm-6 sidenav">
+                        <div class="container">
+                            <div class="row flex">
+                                <div class="col-sm-6 ">
+                                    <hr>
+                                    <div class="float-right">
+                                    <ul class="nav nav-pills flex-column">
+                                        <li class ="classWithPad">
+                                            <a href="http://localhost:9000/buttonUp"><button class="btn btn-secondary custom" type="submit">MoveUp</button></a>
+                                        </li>
+                                            <li class ="classWithPad">
+                                                <a href="http://localhost:9000/buttonDown"><button class="btn btn-secondary custom" type="submit">MoveDown</button></a>
+                                            </li>
+                                            <li class ="classWithPad">
+                                                <a href="http://localhost:9000/buttonLeft"><button class="btn btn-secondary custom" type="submit">MoveLeft</button></a>
+                                            </li>
+                                            <li class ="classWithPad">
+                                                <a href="http://localhost:9000/buttonRight"><button class="btn btn-secondary custom" type="submit">MoveRight</button></a>
+                                            </li>
+                                    </ul>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 ">
+                                    <hr>
+                                    <ul class="nav nav-pills flex-column">
+                                        <li class ="classWithPad">
+                                        <a href="http://localhost:9000/lookUp"><button class="btn btn-secondary custom" type="submit">LookUp</button></a>
+                                        </li>
+                                        <li class ="classWithPad">
+                                        <a href="http://localhost:9000/lookDown"><button class="btn btn-secondary custom" type="submit">LookDown</button></a>
+                                        </li>
+                                        <li class ="classWithPad">
+                                        <a href="http://localhost:9000/lookLeft"><button class="btn btn-secondary custom" type="submit">LookLeft</button></a>
+                                        </li>
+                                        <li class ="classWithPad">
+                                        <a href="http://localhost:9000/lookRight"><button class="btn btn-secondary custom" type="submit">LookRight</button></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
             </div>
+            <br>
         </div>
-        <br>
-
     </body>
 
 </html>
