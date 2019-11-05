@@ -22,6 +22,7 @@
 .topnav {
     overflow: hidden;
     background-color: #333;
+    padding: 0px 0px 0px 10px;
 }
 
 /* Navbar links */
@@ -86,6 +87,9 @@
     width: 100px !important;
 }
 
+.container-fluid {
+    text-align: center;
+}
 
 
 
