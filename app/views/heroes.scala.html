@@ -1,24 +1,27 @@
 @(controller:de.htwg.se.heroes.controllerComponent.ControllerInterface)
 
-@cellType(x:Int, y:Int)= @{
-    import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.HeroCell
-    import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.Leer
-    import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.Stop
-    import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.GoldCell
-    import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.EnemyCell
-    controller.getMatrixCell(x,y) match {
-        case f:HeroCell => "hero.png"
-        case Leer() => "grass.jpg"
-        case Stop() => "berg.jpg"
-        case GoldCell() => "gold.jpg"
-        case f: EnemyCell => "drake.jpg"
-        //case f: MeleeSoldier => "lich.jpg"
-        //case f: RangeSoldier => "gold.jpg"
+    @cellType(x:Int, y:Int)= @{
+        import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.HeroCell
+        import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.Leer
+        import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.Stop
+        import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.GoldCell
+        import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.EnemyCell
+        controller.getMatrixCell(x,y) match {
+            case f:HeroCell => "hero.png"
+            case Leer() => "grass.jpg"
+            case Stop() => "berg.jpg"
+            case GoldCell() => "gold.jpg"
+            case f: EnemyCell => "drake.jpg"
+            //case f: MeleeSoldier => "lich.jpg"
+            //case f: RangeSoldier => "gold.jpg"
+        }
     }
-}
 
 @main("heroes"){
 <html>
+    <head>
+        <script src="/javascripts/heroes.js"></script>
+    </head>
     <body>
         <div class="container">
             <div class="row">
@@ -49,13 +52,25 @@
                                             <a href="http://localhost:9000/buttonUp"><button class="btn btn-secondary btn-block responsive-width" type="submit">MoveUp</button></a>
                                         </li>
                                             <li class ="classWithPad">
-                                                <a href="http://localhost:9000/buttonDown"><button class="btn btn-secondary btn-block responsive-width" type="submit">MoveDown</button></a>
+
+                                                <button class="btn btn-secondary btn-block responsive-width" id = "moveDownTest"> MoveDown </button>
+
+@*                                                 <script>
+                                                        function visitPage(){
+                                                            return window.location = 'http://localhost:9000/buttonDown';
+                                                        }
+
+                                                        var moveDown = document.getElementById("moveDownTest");
+                                                        moveDown.addEventListener("click", visitPage, false);
+                                                </script>
+                    *@
+
                                             </li>
                                             <li class ="classWithPad">
-                                                <a href="http://localhost:9000/buttonLeft"><button class="btn btn-secondary btn-block responsive-width" type="submit">MoveLeft</button></a>
+                                                <button class="btn btn-secondary btn-block responsive-width" id = "moveLeft">MoveLeft</button>
                                             </li>
                                             <li class ="classWithPad">
-                                                <a href="http://localhost:9000/buttonRight"><button class="btn btn-secondary btn-block responsive-width" type="submit">MoveRight</button></a>
+                                                <button class="btn btn-secondary btn-block responsive-width" id = "moveRight">MoveRight</button>
                                             </li>
                                     </ul>
                                 </div>
@@ -82,6 +97,7 @@
             </div>
             <br>
         </div>
+        <script src="/javascripts/heroes.js"></script>
     </body>
 
 </html>
