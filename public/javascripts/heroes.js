@@ -4,12 +4,11 @@ function visitPage(){
     return window.location = 'http://localhost:9000/buttonDown';
 }
 
-var moveDown = document.getElementById("moveDownTest");
+var moveDown1 = document.getElementById("moveDownTest");
 moveDown.addEventListener("click", visitPage, false);
 
 
 function moveUpJs() {
-
     return "http://localhost:9000/buttonUp";
 }
 var moveUp = document.getElementById("moveUp");
@@ -18,11 +17,12 @@ moveUp.addEventListener("click", moveUpJs,true);
 /**
  * @return {string}
  */
-/*function moveDownJs() {
+function moveDownJs() {
+    alert("tolle knolle")
     return window.location = "http://localhost:9000/buttonDown";
 }
 var moveDown = document.getElementById("moveDown");
-moveDown.addEventListener("click", moveDownJs,true);*/
+moveDown.addEventListener("click", moveDownJs,true);
 
 /**
  * @return {string}

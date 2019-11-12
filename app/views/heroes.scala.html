@@ -20,7 +20,7 @@
 @main("heroes"){
 <html>
     <head>
-        <script src="/javascripts/heroes.js"></script>
+
     </head>
     <body>
         <div class="container">
@@ -49,28 +49,16 @@
                                     <hr>
                                     <ul class="flex-column">
                                         <li class ="classWithPad">
-                                            <a href="http://localhost:9000/buttonUp"><button class="btn btn-secondary btn-block responsive-width" type="submit">MoveUp</button></a>
-                                        </li>
-                                            <li class ="classWithPad">
-
-                                                <button class="btn btn-secondary btn-block responsive-width" id = "moveDownTest"> MoveDown </button>
-
-@*                                                 <script>
-                                                        function visitPage(){
-                                                            return window.location = 'http://localhost:9000/buttonDown';
-                                                        }
-
-                                                        var moveDown = document.getElementById("moveDownTest");
-                                                        moveDown.addEventListener("click", visitPage, false);
-                                                </script>
-                    *@
-
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" onclick="moveUpJs()">MoveUp</button>
+                                            </li>
+                                        <li class ="classWithPad">
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" onclick="moveDownJs()">MoveDown</button>
                                             </li>
                                             <li class ="classWithPad">
-                                                <button class="btn btn-secondary btn-block responsive-width" id = "moveLeft">MoveLeft</button>
+                                                <button class="btn btn-secondary btn-block responsive-width" type="button" onclick="moveLeftJs()Js()">ButtonLeft</button>
                                             </li>
                                             <li class ="classWithPad">
-                                                <button class="btn btn-secondary btn-block responsive-width" id = "moveRight">MoveRight</button>
+                                                <button class="btn btn-secondary btn-block responsive-width" type="button" onclick="moveRightJs()Js()">ButtonRight</button>
                                             </li>
                                     </ul>
                                 </div>
@@ -97,8 +85,7 @@
             </div>
             <br>
         </div>
-        <script src="/javascripts/heroes.js"></script>
+        <script type="text/javascript" src='@routes.Assets.versioned("javascripts/heroes.js")'></script>
     </body>
-
 </html>
 }
