@@ -1,5 +1,6 @@
 @(controller:de.htwg.se.heroes.controllerComponent.ControllerInterface)
-
+    @size= @{ 9 }
+    @toScalar(house:Int, cell:Int)=@{ (house+3*cell).toString}
     @cellType(x:Int, y:Int)= @{
         import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.HeroCell
         import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.Leer
@@ -20,7 +21,6 @@
 @main("heroes"){
 <html>
     <head>
-
     </head>
     <body>
         <div class="container">
@@ -33,7 +33,17 @@
                             @for(rowIndex <- 0 until 9) {
                                 <div class="row">
                                @for(columnIndex <-0 until 9){
-                                       <img class="img2" src = @routes.Assets.versioned("images/" + {cellType(columnIndex,rowIndex)}) >
+                                   <div  img style="visibility: visible;" id= @toScalar(columnIndex, rowIndex)>
+                                        <img  class="img2" onclick="changeTile(@toScalar(columnIndex, rowIndex))" src= @routes.Assets.versioned("images/" + {cellType(columnIndex,rowIndex)})>
+                                   </div>
+                               }
+                                </div>
+                            }
+                            @for(houseIndex <- 0 until 9) {
+                                <div class="row">
+                                @for(cellIndex <- 0 until 9) {
+                                    <div class="cell" id="scalar@{houseIndex * cellIndex}">
+                                    </div>
                                 }
                                 </div>
                             }
@@ -50,32 +60,32 @@
                                     <ul class="flex-column">
                                         <li class ="classWithPad">
                                             <button class="btn btn-secondary btn-block responsive-width" type="button" onclick="moveUpJs()">MoveUp</button>
-                                            </li>
+                                        </li>
                                         <li class ="classWithPad">
                                             <button class="btn btn-secondary btn-block responsive-width" type="button" onclick="moveDownJs()">MoveDown</button>
-                                            </li>
-                                            <li class ="classWithPad">
-                                                <button class="btn btn-secondary btn-block responsive-width" type="button" onclick="moveLeftJs()Js()">ButtonLeft</button>
-                                            </li>
-                                            <li class ="classWithPad">
-                                                <button class="btn btn-secondary btn-block responsive-width" type="button" onclick="moveRightJs()Js()">ButtonRight</button>
-                                            </li>
+                                        </li>
+                                        <li class ="classWithPad">
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" onclick="moveLeftJs()">MoveLeft</button>
+                                        </li>
+                                        <li class ="classWithPad">
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" onclick="moveRightJs()">MoveRight</button>
+                                        </li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-6 ">
                                     <hr>
                                     <ul class="flex-column">
                                         <li class ="classWithPad">
-                                        <a href="http://localhost:9000/lookUp"><button class="btn btn-secondary btn-block responsive-width" type="submit">LookUp</button></a>
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" onclick="lookUpJs()">LookUp</button></a>
                                         </li>
                                         <li class ="classWithPad">
-                                        <a href="http://localhost:9000/lookDown"><button class="btn btn-secondary btn-block responsive-width" type="submit">LookDown</button></a>
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" onclick="lookDownJs()">LookDown</button></a>
                                         </li>
                                         <li class ="classWithPad">
-                                        <a href="http://localhost:9000/lookLeft"><button class="btn btn-secondary btn-block responsive-width" type="submit">LookLeft</button></a>
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" onclick="lookLeftJs()">LookLeft</button></a>
                                         </li>
                                         <li class ="classWithPad">
-                                        <a href="http://localhost:9000/lookRight"><button class="btn btn-secondary btn-block responsive-width" type="submit">LookRight</button></a>
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" onclick="lookRightJs()">LookRight</button></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -86,6 +96,7 @@
             <br>
         </div>
         <script type="text/javascript" src='@routes.Assets.versioned("javascripts/heroes.js")'></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     </body>
 </html>
 }
