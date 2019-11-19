@@ -30,15 +30,30 @@ function initbutton() {
 }
 */
 
-function updateField(size) {
+function updateField(size, grid) {
     let html ="";
-    for (let index=0; index < size*size; index++) {
-        html = html + "<img  class='img2' src= @routes.Assets.versioned('images/ + {cellType(columnIndex,rowIndex)}')>"
+    for (let col=0; col < size; col++) {
+        html = html + "<div class=\"row\">";
+        for (let row=0; row < size; row++) {
+            html = html + "<img  class=img2 src=/assets/" + getCellType(col, row, grid) + ">"
+        }
+        html = html + "</div>"
     }
     $("#gr").html(html);
 }
 
-function initbutton() {
+function getCellType(col, row, grid) {
+    let type = grid.cells[col*row];
+    switch (type) {
+        case "X": return "images/grass.jpg";
+        case "H": return "images/hero.png";
+        case " ": return "images/grass.jpg";
+        default: return   "images/drake.jpg";
+    }
+}
+
+
+function initbutton(grid) {
     $("#buttonUp").click(function() {$.ajax( {
         method: "GET",
         url: "/buttonUp"
@@ -57,20 +72,39 @@ function initbutton() {
     })});
     $("#LookUp").click(function() {$.ajax( {
         method: "GET",
-        url: "/lookUp"
+        url: "/lookUp",
+        dataType: "json",
+        success: function (result) {
+            grid.fill(result);
+            updateField(9, grid)
+        }
     })});
     $("#LookDown").click(function() {$.ajax( {
         method: "GET",
-        url: "/lookDown"
+        url: "/lookDown",
+        dataType: "json",
+        success: function (result) {
+            grid.fill(result);
+            updateField(9, grid)
+        }
     })});
     $("#LookRight").click(function() {$.ajax( {
         method: "GET",
-        url: "/lookRight"
+        url: "/lookRight",
+        dataType: "json",
+        success: function (result) {
+            grid.fill(result);
+            updateField(9, grid)
+        }
     })});
     $("#LookLeft").click(function() {$.ajax( {
         method: "GET",
         url: "/lookLeft",
-        success : updateField(9)
+        dataType: "json",
+        success: function (result) {
+            grid.fill(result);
+            updateField(9, grid)
+        }
     })});
 }
 
@@ -96,9 +130,10 @@ class Grid {
     }
 
     fill(json) {
-        for (let scalar=0; scalar <this.size*this.size;scalar++) {
-            this.cells[scalar]=(json[scalar].cell);
+        for (let scalar=0; scalar <9*9;scalar++) {
+            this.cells[scalar]=json.field.cells[scalar].cell;
         }
+
     }
 }
 
@@ -109,10 +144,10 @@ function loadJson() {
         dataType: "json",
 
         success: function (result) {
-            grid = new Grid(result.field.x);
-            grid.fill(result.field.cells);
+            let grid = new Grid(result.field.x);
+            grid.fill(result);
            // updateGrid(grid);
-            initbutton();
+            initbutton(grid);
         }
     });
 }

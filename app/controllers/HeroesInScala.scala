@@ -62,8 +62,8 @@ class HeroesInScala @Inject()(cc: ControllerComponents) extends AbstractControll
   }
 
   def lookUp = Action {
-    gameController.show(UIEvent.MoveUp)
-    Ok(views.html.heroes(gameController))
+    //gameController.show(UIEvent.MoveUp)
+    Ok(gameController.show(UIEvent.MoveUp))
   }
 
   def lookLeft = Action {
@@ -77,8 +77,8 @@ class HeroesInScala @Inject()(cc: ControllerComponents) extends AbstractControll
   }
 
   def lookDown = Action {
-    gameController.show(UIEvent.MoveDown)
-    Ok(views.html.heroes(gameController))
+    //gameController.show(UIEvent.MoveDown)
+    Ok(gameController.show(UIEvent.MoveDown))
   }
 
   def heroes = Action {
