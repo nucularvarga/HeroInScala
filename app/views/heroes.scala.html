@@ -29,7 +29,7 @@
                     <link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/wui.css")"/>
                     <br>
                     <div class = "playField">
-                        <div class = "container-fluid">
+                        <div class = "container-fluid" id = "gr">
                             @for(rowIndex <- 0 until 9) {
                                 <div class="row">
                                @for(columnIndex <-0 until 9){
@@ -59,16 +59,16 @@
                                     <hr>
                                     <ul class="flex-column">
                                         <li class ="classWithPad">
-                                            <button class="btn btn-secondary btn-block responsive-width" type="button" onclick="moveUpJs()">MoveUp</button>
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" id="buttonUp" >MoveUp</button>
                                         </li>
                                         <li class ="classWithPad">
-                                            <button class="btn btn-secondary btn-block responsive-width" type="button" onclick="moveDownJs()">MoveDown</button>
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" id="buttonDown">MoveDown</button>
                                         </li>
                                         <li class ="classWithPad">
-                                            <button class="btn btn-secondary btn-block responsive-width" type="button" onclick="moveLeftJs()">MoveLeft</button>
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" id="buttonLeft">MoveLeft</button>
                                         </li>
                                         <li class ="classWithPad">
-                                            <button class="btn btn-secondary btn-block responsive-width" type="button" onclick="moveRightJs()">MoveRight</button>
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" id="buttonRight">MoveRight</button>
                                         </li>
                                     </ul>
                                 </div>
@@ -76,16 +76,16 @@
                                     <hr>
                                     <ul class="flex-column">
                                         <li class ="classWithPad">
-                                            <button class="btn btn-secondary btn-block responsive-width" type="button" onclick="lookUpJs()">LookUp</button></a>
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" id="LookUp" >LookUp</button></a>
                                         </li>
                                         <li class ="classWithPad">
-                                            <button class="btn btn-secondary btn-block responsive-width" type="button" onclick="lookDownJs()">LookDown</button></a>
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" id="LookDown" >LookDown</button></a>
                                         </li>
                                         <li class ="classWithPad">
-                                            <button class="btn btn-secondary btn-block responsive-width" type="button" onclick="lookLeftJs()">LookLeft</button></a>
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" id="LookLeft" >LookLeft</button></a>
                                         </li>
                                         <li class ="classWithPad">
-                                            <button class="btn btn-secondary btn-block responsive-width" type="button" onclick="lookRightJs()">LookRight</button></a>
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" id="LookRight" >LookRight</button></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -95,8 +95,6 @@
             </div>
             <br>
         </div>
-        <script type="text/javascript" src='@routes.Assets.versioned("javascripts/heroes.js")'></script>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     </body>
 </html>
 }

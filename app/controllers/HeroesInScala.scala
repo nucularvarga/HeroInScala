@@ -37,6 +37,10 @@ class HeroesInScala @Inject()(cc: ControllerComponents) extends AbstractControll
 
   }
 
+  def getjson = Action {
+    Ok(gameController.getJson);
+  }
+
   def moveUp = Action {
     gameController.action(UIEvent.MoveUp)
     Ok(views.html.heroes(gameController))

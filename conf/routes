@@ -10,13 +10,15 @@ GET     /about                      controllers.HeroesInScala.about
 
 GET     /command                    controllers.HeroesInScala.command(cmd: String)
 
-GET     /buttonUp                   controllers.HeroesInScala.moveUp
+GET     /json                       controllers.HeroesInScala.getjson
 
 GET     /buttonLeft                   controllers.HeroesInScala.moveLeft
 
 GET     /buttonRight                   controllers.HeroesInScala.moveRight
 
 GET     /buttonDown                   controllers.HeroesInScala.moveDown
+
+GET     /buttonUp                  controllers.HeroesInScala.moveUp
 
 
 GET     /lookUp                   controllers.HeroesInScala.lookUp
