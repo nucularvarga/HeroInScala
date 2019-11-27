@@ -14,27 +14,11 @@ function cell(houseIndex, cellIndex) {
     return toScalar(houseIndex,cellIndex), toScalar(houseIndex,cellIndex)
 }
 
-/*
-function initbutton() {
-    $("#buttonUp").click(function() {$.ajax( {
-        method: "GET",
-        url: "/buttonUp"
-    })});
-    $("#buttonDown").click(function() {window.location ="http://localhost:9000/buttonDown"});
-    $("#buttonLeft").click(function() {window.location ="http://localhost:9000/buttonLeft"});
-    $("#buttonRight").click(function() {window.location ="http://localhost:9000/buttonRight"});
-    $("#LookUp").click(function() {window.location ="http://localhost:9000/lookUp"});
-    $("#LookDown").click(function() {window.location ="http://localhost:9000/lookDown"});
-    $("#LookRight").click(function() {window.location ="http://localhost:9000/lookRight"});
-    $("#LookLeft").click(function() {window.location ="http://localhost:9000/lookLeft"});
-}
-*/
-
 function updateField(size, grid) {
     let html ="";
-    for (let col=0; col < size; col++) {
+    for (let row=0; row < size; row++) {
         html = html + "<div class=\"row\">";
-        for (let row=0; row < size; row++) {
+        for (let col=0; col < size; col++) {
             html = html + "<img  class=img2 src=/assets/" + getCellType(col, row, grid) + ">"
         }
         html = html + "</div>"
@@ -43,40 +27,90 @@ function updateField(size, grid) {
 }
 
 function getCellType(col, row, grid) {
-    let type = grid.cells[col*row];
+    let type = grid.cells[row*9 + col];
     switch (type) {
-        case "X": return "images/grass.jpg";
-        case "H": return "images/hero.png";
+        case "X": return "images/berg.jpg";
+        case "1": return "images/hero.png";
+        case "2": return "images/hero.png";
         case " ": return "images/grass.jpg";
-        default: return   "images/drake.jpg";
+        case ")": return "images/gold.jpg";
+        case "F": return "images/drake.jpg";
+        default: return   "images/lich.jpg";
     }
+}
+
+function getCellTypeB(col, row, grid) {
+    let type = grid.cells[row*20 + col];
+    switch (type) {
+        case "X": return "images/berg.jpg";
+        case "1": return "images/hero.png";
+        case "2": return "images/hero.png";
+        case " ": return "images/grass.jpg";
+        case ")": return "images/gold.jpg";
+        case "F": return "images/drake.jpg";
+        default: return   "images/lich.jpg";
+    }
+}
+
+function updateFieldButton(size, grid) {
+    let html ="";
+    for (let row=0; row < size; row++) {
+        html = html + "<div class=\"row\">";
+        for (let col=0; col < size; col++) {
+            html = html + "<img  class=img2 src=/assets/" + getCellTypeB(col, row, grid) + ">"
+        }
+        html = html + "</div>"
+    }
+    $("#gr").html(html);
 }
 
 
 function initbutton(grid) {
     $("#buttonUp").click(function() {$.ajax( {
         method: "GET",
-        url: "/buttonUp"
+        url: "/buttonUp",
+        dataType: "json",
+        success: function (result) {
+            grid.fill(result, result.field.x);
+            updateFieldButton(9, grid)
+        }
     })});
     $("#buttonDown").click(function() {$.ajax( {
         method: "GET",
-        url: "/buttonDown"
+        url: "/buttonDown",
+        dataType: "json",
+        success: function (result) {
+            grid.fill(result, result.field.x);
+            updateFieldButton(9, grid)
+        }
     })});
     $("#buttonLeft").click(function() {$.ajax( {
         method: "GET",
-        url: "/buttonLeft"
+        url: "/buttonLeft",
+        dataType: "json",
+        success: function (result) {
+            grid.fill(result, result.field.x);
+            updateFieldButton(9, grid)
+        }
     })});
     $("#buttonRight").click(function() {$.ajax( {
         method: "GET",
-        url: "/buttonRight"
+        url: "/buttonRight",
+        dataType: "json",
+        success: function (result) {
+            grid.fill(result, result.field.x);
+            updateFieldButton(9, grid)
+        }
     })});
     $("#LookUp").click(function() {$.ajax( {
         method: "GET",
         url: "/lookUp",
         dataType: "json",
         success: function (result) {
-            grid.fill(result);
+            grid.fill(result, result.field.x);
             updateField(9, grid)
+          //  for(let x=0; x<81; ++x)
+            //    alert(x+ "= " + grid.cells[x])
         }
     })});
     $("#LookDown").click(function() {$.ajax( {
@@ -84,7 +118,7 @@ function initbutton(grid) {
         url: "/lookDown",
         dataType: "json",
         success: function (result) {
-            grid.fill(result);
+            grid.fill(result, result.field.x);
             updateField(9, grid)
         }
     })});
@@ -93,7 +127,7 @@ function initbutton(grid) {
         url: "/lookRight",
         dataType: "json",
         success: function (result) {
-            grid.fill(result);
+            grid.fill(result, result.field.x);
             updateField(9, grid)
         }
     })});
@@ -102,7 +136,7 @@ function initbutton(grid) {
         url: "/lookLeft",
         dataType: "json",
         success: function (result) {
-            grid.fill(result);
+            grid.fill(result, result.field.x);
             updateField(9, grid)
         }
     })});
@@ -129,8 +163,8 @@ class Grid {
         this.cells = [];
     }
 
-    fill(json) {
-        for (let scalar=0; scalar <9*9;scalar++) {
+    fill(json, size) {
+        for (let scalar=0; scalar <size*size;scalar++) {
             this.cells[scalar]=json.field.cells[scalar].cell;
         }
 
@@ -145,7 +179,7 @@ function loadJson() {
 
         success: function (result) {
             let grid = new Grid(result.field.x);
-            grid.fill(result);
+            grid.fill(result, result.field.x);
            // updateGrid(grid);
             initbutton(grid);
         }

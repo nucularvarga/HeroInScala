@@ -37,28 +37,31 @@ class HeroesInScala @Inject()(cc: ControllerComponents) extends AbstractControll
 
   }
 
+  def init = Action {
+    Ok(views.html.heroes(gameController))
+  }
+
   def getjson = Action {
     Ok(gameController.getJson);
   }
 
   def moveUp = Action {
-    gameController.action(UIEvent.MoveUp)
-    Ok(views.html.heroes(gameController))
+
+    Ok( gameController.action(UIEvent.MoveUp))
   }
 
   def moveLeft = Action {
-    gameController.action(UIEvent.MoveLeft)
-    Ok(views.html.heroes(gameController))
+    Ok(gameController.action(UIEvent.MoveLeft))
   }
 
   def moveRight = Action {
-    gameController.action(UIEvent.MoveRight)
-    Ok(views.html.heroes(gameController))
+
+    Ok(gameController.action(UIEvent.MoveRight))
   }
 
   def moveDown = Action {
-    gameController.action(UIEvent.MoveDown)
-    Ok(views.html.heroes(gameController))
+
+    Ok(gameController.action(UIEvent.MoveDown))
   }
 
   def lookUp = Action {
@@ -67,13 +70,13 @@ class HeroesInScala @Inject()(cc: ControllerComponents) extends AbstractControll
   }
 
   def lookLeft = Action {
-    gameController.show(UIEvent.MoveLeft)
-    Ok(views.html.heroes(gameController))
+    //gameController.show(UIEvent.MoveLeft)
+    Ok(gameController.show(UIEvent.MoveLeft))
   }
 
   def lookRight = Action {
-    gameController.show(UIEvent.MoveRight)
-    Ok(views.html.heroes(gameController))
+    //gameController.show(UIEvent.MoveRight)
+    Ok(gameController.show(UIEvent.MoveRight))
   }
 
   def lookDown = Action {
