@@ -34,7 +34,7 @@
                                 <div class="row">
                                @for(columnIndex <-0 until 9){
                                    <div  img style="visibility: visible;" id= @toScalar(columnIndex, rowIndex)>
-                                        <img  class="img2" onclick="changeTile(@toScalar(columnIndex, rowIndex))" src= @routes.Assets.versioned("images/" + {cellType(columnIndex,rowIndex)})>
+                                        <img  class="img2" src= @routes.Assets.versioned("images/" + {cellType(columnIndex,rowIndex)})>
                                    </div>
                                }
                                 </div>
