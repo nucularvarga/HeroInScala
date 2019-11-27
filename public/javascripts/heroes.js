@@ -4,6 +4,7 @@
 $(document).ready(function() {
   //  alert('working');
     loadJson();
+    connectWebSocket();
 });
 
 function toScalar(house, cell) {
@@ -184,6 +185,38 @@ function loadJson() {
             initbutton(grid);
         }
     });
+}
+
+
+function connectWebSocket() {
+    let websocket = new WebSocket("ws://localhost:9000/websocket");
+    websocket.setTimeout;
+
+    websocket.onopen = function(event) {
+        console.log("Connected to Websocket");
+    };
+
+    websocket.onclose = function () {
+        console.log('Connection with Websocket Closed!');
+    };
+
+    websocket.onerror = function (error) {
+        console.log('Error in Websocket Occured: ' + error);
+    };
+
+    websocket.onmessage = function (e) {
+        if (typeof e.data === "string") {
+
+            console.log("JSON RECIEVED!");
+            console.log(e.data);
+
+            let json = JSON.parse(e.data);
+            let grid = new Grid(json.field.x);
+            grid.fill(json);
+            //initbutton(grid);
+        }
+
+    };
 }
 
 /*function moveUpJs() {

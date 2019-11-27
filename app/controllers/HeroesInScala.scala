@@ -3,14 +3,18 @@ package controllers
 import javax.inject._
 import play.api.mvc._
 import de.htwg.se.heroes.main
-import de.htwg.se.heroes.controllerComponent.controllerBaseImpl.gamemode.GameMode
-import de.htwg.se.heroes.controllerComponent.controllerBaseImpl.gamemode
-import de.htwg.se.heroes.controllerComponent.controllerBaseImpl.gamemode.UIEvent.UIEvent
 import de.htwg.se.heroes.controllerComponent.controllerBaseImpl.gamemode.UIEvent
+import de.htwg.se.heroes.controllerComponent.FieldChanged
+import play.api.libs.streams.ActorFlow
+import akka.actor.ActorSystem
+import akka.stream.Materializer
+import akka.actor._
+import scala.swing.Reactor
+
 
 
 @Singleton
-class HeroesInScala @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
+class HeroesInScala @Inject()(cc: ControllerComponents)(implicit system: ActorSystem, mat: Materializer) extends AbstractController(cc) {
   var gameController = main.controller
   gameController.init("2")
   def HeroesAsText =  gameController.playgroundToString //+ GameStatus.message(gameController.gameStatus)
@@ -86,6 +90,41 @@ class HeroesInScala @Inject()(cc: ControllerComponents) extends AbstractControll
 
   def heroes = Action {
     Ok(HeroesAsText)
+  }
+
+  def socket = WebSocket.accept[String, String] { request =>
+
+    ActorFlow.actorRef { out =>
+      println("Connect received")
+      HeroesWebSocketActorFactory.create(out)
+    }
+  }
+
+  object HeroesWebSocketActorFactory {
+
+    def create(out: ActorRef) = {
+      Props(new HeroesWebSocketActor(out))
+    }
+
+  }
+
+  class HeroesWebSocketActor(out: ActorRef) extends Actor with Reactor {
+    listenTo(gameController)
+
+    def receive = {
+      case msg: String =>
+        out ! (gameController.getJson.toString)
+        println("Sent Json to Client"+ msg)
+    }
+
+    reactions += {
+      case event: FieldChanged  => sendJsonToClient
+    }
+
+    def sendJsonToClient = {
+      println("Received event from Controller")
+      out ! (gameController.getJson.toString)
+    }
   }
 
 }
