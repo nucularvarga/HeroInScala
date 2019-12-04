@@ -209,10 +209,10 @@ function connectWebSocket() {
 
             console.log("JSON RECIEVED!");
             console.log(e.data);
-
             let json = JSON.parse(e.data);
             let grid = new Grid(json.field.x);
-            grid.fill(json);
+            grid.fill(json, json.field.x);
+            updateFieldButton(9, grid);
             //initbutton(grid);
         }
 
