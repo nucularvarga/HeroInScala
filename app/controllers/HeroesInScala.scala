@@ -91,10 +91,12 @@ class HeroesInScala @Inject()(cc: ControllerComponents)(implicit system: ActorSy
   def heroes = Action {
     Ok(HeroesAsText)
   }
-
+  var participants: Array[ActorRef] = Array.empty[ActorRef]
   def socket = WebSocket.accept[String, String] { request =>
 
     ActorFlow.actorRef { out =>
+      participants = participants :+ out
+      println(out)
       println("Connect received")
       HeroesWebSocketActorFactory.create(out)
     }
@@ -113,7 +115,7 @@ class HeroesInScala @Inject()(cc: ControllerComponents)(implicit system: ActorSy
 
     def receive = {
       case msg: String =>
-        out ! (gameController.getJson.toString)
+        for (name <- participants) {name ! (gameController.getJson.toString)}
         println("Sent Json to Client"+ msg)
     }
 
@@ -123,6 +125,8 @@ class HeroesInScala @Inject()(cc: ControllerComponents)(implicit system: ActorSy
 
     def sendJsonToClient = {
       println("Received event from Controller")
+      for (name <- participants) {println(name) + gameController.toString}
+      //for (name <- participants) {name ! (gameController.getJson.toString)}
       out ! (gameController.getJson.toString)
     }
   }
