@@ -1,0 +1,36 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="public-element">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]!</h2>
+  </template>
+
+  <script>
+    /**
+     * `public-element`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class PublicElement extends Polymer.Element {
+      static get is() { return 'public-element'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'public-element'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(PublicElement.is, PublicElement);
+  </script>
+</dom-module>
