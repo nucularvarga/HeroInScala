@@ -1,0 +1,273 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="sudoku-app">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+
+            .topnav {
+                overflow: hidden;
+                background-color: #333;
+                padding: 0px 0px 0px 10px;
+            }
+
+            /* Navbar links */
+            .topnav a {
+                float: left;
+                display: block;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+            /* Links - change color on hover */
+            .topnav a:hover {
+                background-color: #ddd;
+                color: black;
+            }
+
+            .topnav .a:focus {
+                border-bottom-color: rgba(255, 255, 255, .25);
+            }
+
+            .grid-item {
+                padding: 0px;
+                font-size: 0px;
+                text-align: center;
+            }
+
+            .buttons-tray {
+                margin: auto;
+                border: 3px peru;
+                padding: 10px;
+            }
+
+            /* On small screens, set height to 'auto' for sidenav and grid */
+            @media screen and (max-width: 768px) {
+                .sidenav {
+                    height: auto;
+                }
+
+                .img2 {
+                    display: block;
+                    width: 48px;
+                    height: 48px;
+                }
+
+            }
+
+            @media screen and (max-width: 484px) {
+                .sidenav {
+                    height: auto;
+                }
+
+                .img2 {
+                    display: block;
+                    width: 32px;
+                    height: 32px;
+                }
+            }
+
+            /*sideNav*/
+            .sidenav {
+                background-color: #f1f1f1;
+                margin-top: 25px;
+            }
+
+            .side-nav-big {
+                padding-top: 0px;
+            }
+
+
+            .classWithPad {
+                padding: 10px;
+            }
+
+            .custom {
+                width: 100px !important;
+            }
+
+            .container-fluid {
+                text-align: center;
+            }
+
+            .responsive-width {
+                font-size: 1.0vw;
+            }
+
+            .img2 {
+                display: block;
+                max-width: 100%;
+                height: auto;
+            }
+
+            .footer {
+                position: fixed;
+                padding: 10px;
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+        </style>
+        <html>
+        <head>
+        </head>
+        <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-auto col-lg-auto col-xl-8">
+                    <br>
+                    <div class="playField">
+                        <div class="container-fluid" id="gr">
+                            <template is="dom-repeat" items="{{houses}}">
+                                <div class="row">
+                                    <template is="dom-repeat" items="{{houses}}">
+                                      <!--  add polymer element class for toscalar and celltype -->
+                                        <div img style="visibility: visible;" id= toScalar(columnIndex,rowIndex)>
+                                            <img class="img2" src= "../../images/" + {cellType(columnIndex,rowIndex)})>
+                                        </div>
+                                    </template>
+                                </div>
+                            </template>
+
+                          <template is="dom-repeat" items = "{{houses}}">
+                            <div class="row">
+                              <template is="dom-repeat" items = "{{houses}}">
+                                <div class="cell" id="scalar@{houseIndex * cellIndex}">
+                                </div>
+                              </template>
+                            </div>
+                          </template>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-0 col-md-auto col-lg-auto col-xl-4 sidenav">
+                    <br>
+                    <div class="container-fluid">
+                        <div class="row flex">
+                            <div class="col-sm-6 ">
+                                <hr>
+                                <ul class="flex-column">
+                                    <li class="classWithPad">
+                                        <button class="btn btn-secondary btn-block responsive-width" type="button"
+                                                id="buttonUp">MoveUp
+                                        </button>
+                                    </li>
+                                    <li class="classWithPad">
+                                        <button class="btn btn-secondary btn-block responsive-width" type="button"
+                                                id="buttonDown">MoveDown
+                                        </button>
+                                    </li>
+                                    <li class="classWithPad">
+                                        <button class="btn btn-secondary btn-block responsive-width" type="button"
+                                                id="buttonLeft">MoveLeft
+                                        </button>
+                                    </li>
+                                    <li class="classWithPad">
+                                        <button class="btn btn-secondary btn-block responsive-width" type="button"
+                                                id="buttonRight">MoveRight
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-6 ">
+                                <hr>
+                                <ul class="flex-column">
+                                    <li class="classWithPad">
+                                        <button class="btn btn-secondary btn-block responsive-width" type="button"
+                                                id="LookUp">LookUp
+                                        </button>
+                                        </a>
+                                    </li>
+                                    <li class="classWithPad">
+                                        <button class="btn btn-secondary btn-block responsive-width" type="button"
+                                                id="LookDown">LookDown
+                                        </button>
+                                        </a>
+                                    </li>
+                                    <li class="classWithPad">
+                                        <button class="btn btn-secondary btn-block responsive-width" type="button"
+                                                id="LookLeft">LookLeft
+                                        </button>
+                                        </a>
+                                    </li>
+                                    <li class="classWithPad">
+                                        <button class="btn btn-secondary btn-block responsive-width" type="button"
+                                                id="LookRight">LookRight
+                                        </button>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+        </body>
+        </html>
+    </template>
+
+    <script>
+        /**
+         * `public-element`
+         *
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class SudokuApp extends Polymer.Element {
+            static get is() {
+                return 'sudoku-app';
+            }
+
+            static get properties() {
+                return {
+                    cell: {
+                        type: Number,
+                        value: [2]
+                    },
+                    houses: {
+                        type: Array,
+                        value() {
+                            return [
+                                {value: '1'},
+                                {value: '2'},
+                                {value: '3'},
+                                {value: '4'},
+                                {value: '5'},
+                                {value: '6'},
+                                {value: '7'},
+                                {value: '8'},
+                                {value: '9'}
+                            ];
+                        }
+                    },
+                    cells: {
+                        type: Array,
+                        value() {
+                            return [
+                                {value: '1'},
+                                {value: '2'},
+                                {value: '3'},
+                                {value: '4'},
+                                {value: '5'},
+                                {value: '6'},
+                                {value: '7'},
+                                {value: '8'},
+                                {value: '9'}
+                            ];
+                        }
+                    }
+                };
+            }
+        }
+
+        window.customElements.define(SudokuApp.is, SudokuApp);
+    </script>
+</dom-module>
