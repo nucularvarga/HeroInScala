@@ -6,15 +6,17 @@ import de.htwg.se.heroes.main
 import de.htwg.se.heroes.controllerComponent.controllerBaseImpl.gamemode.UIEvent
 import de.htwg.se.heroes.controllerComponent.FieldChanged
 import play.api.libs.streams.ActorFlow
+import org.webjars.play.WebJarsUtil
 import akka.actor.ActorSystem
 import akka.stream.Materializer
 import akka.actor._
+
 import scala.swing.Reactor
 
 
 
 @Singleton
-class HeroesInScala @Inject()(cc: ControllerComponents)(implicit system: ActorSystem, mat: Materializer) extends AbstractController(cc) {
+class HeroesInScala @Inject()(cc: ControllerComponents)(implicit webJarsUtil: WebJarsUtil, system: ActorSystem, mat: Materializer) extends AbstractController(cc) {
   var gameController = main.controller
   gameController.init("2")
   def HeroesAsText =  gameController.playgroundToString //+ GameStatus.message(gameController.gameStatus)

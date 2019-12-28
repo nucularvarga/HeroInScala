@@ -1,0 +1,9 @@
+{
+  "name": "HeroesInScala",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "milsymbol": "^2.0.0",
+    "vue": "latest"
+  }
+}
