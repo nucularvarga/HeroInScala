@@ -1,3 +1,4 @@
+/*
 
 //test
 
@@ -218,6 +219,7 @@ function connectWebSocket() {
 
     };
 }
+*/
 
 /*function moveUpJs() {
     return

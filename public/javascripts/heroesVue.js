@@ -157,50 +157,60 @@ function initbutton(grid) {
         }
     })});
 }
+*/
 
-class Cell{
+{
+    class Cell {
 
-    constructor(){
-        this.col = 0;
-        this.row = 0;
-        this.cell = "";
-    }
-
-    set(json){
-        this.col = json.col;
-        this.row = json.row;
-        this.cell = json.cell;
-    }
-}
-
-class Grid {
-    constructor(size){
-        this.size = size;
-        this.cells = [];
-    }
-
-    fill(json, size) {
-        for (let scalar=0; scalar <size*size;scalar++) {
-            this.cells[scalar]=json.field.cells[scalar].cell;
+        constructor() {
+            this.col = 0;
+            this.row = 0;
+            this.cell = "";
         }
 
+        set(json) {
+            this.col = json.col;
+            this.row = json.row;
+            this.cell = json.cell;
+        }
     }
 }
 
-function loadJson() {
-    $.ajax({
-        method: "GET",
-        url: "/json",
-        dataType: "json",
-
-        success: function (result) {
-            let grid = new Grid(result.field.x);
-            grid.fill(result, result.field.x);
-            // updateGrid(grid);
-            initbutton(grid);
+{
+    class Grid {
+        constructor(size) {
+            this.size = size;
+            this.cells = [];
         }
-    });
+
+        fill(json, size) {
+            for (let scalar = 0; scalar < size * size; scalar++) {
+                this.cells[scalar] = json.field.cells[scalar].cell;
+            }
+
+        }
+    }
+
+    function loadJson() {
+        $.ajax({
+            method: "GET",
+            url: "/json",
+            dataType: "json",
+
+            success: function (result) {
+                let grid = new Grid(result.field.x);
+                grid.fill(result, result.field.x);
+                // updateGrid(grid);
+                // initbutton(grid);
+                console.log(grid);
+            }
+        });
+    }
 }
+
+
+
+
 
 
 function connectWebSocket() {
@@ -209,6 +219,10 @@ function connectWebSocket() {
 
     websocket.onopen = function(event) {
         console.log("Connected to Websocket");
+
+        const heroesGame = new Vue({
+            el:'#heroes-game'
+        });
     };
 
     websocket.onclose = function () {
@@ -224,21 +238,23 @@ function connectWebSocket() {
 
             console.log("JSON RECIEVED!");
             console.log(e.data);
-            let json = JSON.parse(e.data);
+/*            let json = JSON.parse(e.data);
             let grid = new Grid(json.field.x);
             grid.fill(json, json.field.x);
             updateFieldButton(9, grid);
-            //initbutton(grid);
+            //initbutton(grid);*/
+
+
         }
 
     };
-}*/
+}
+
 
 
 function cells(){
     let heroesCell = [];
     for(let row = 0; row < 9; row ++){
-
         for(let col = 0; col < 9; col ++){
             heroesCell.push({cell:cell(row,col)});
         }
@@ -249,9 +265,11 @@ function cells(){
 
 $(document).ready(function ()
 {
-    const heroesGame = new Vue({
-        el:'#heroes-game'
-    });
+
+    loadJson();
+    connectWebSocket();
+
+
 
 });
 
@@ -276,18 +294,43 @@ $(document).ready(function ()
 
 Vue.component('heroes-field', {
     template:`
-        <div class="gamecontainer">
-            <div class="game">
+     <div class = "playField">
+        <div class="container-fluid" id = "gr">
                 <div v-for="col in grid">
-                    <div v-for="cell in col" v-bind:id="cell"></div>
+                    <div class="row">
+                         <div v-for="cell in col" v-bind:id= toScalar(cell)>
+                             {{cell}},{{col.cell}}
+                             <img src= "./assets/images/berg.jpg">
+                             </div>
+                         </div>
+                     </div>    
                 </div>
-            </div>
         </div>
+      </div> 
     `,
     data: function () {
         return {
             grid: cells()
         }
+    },
+
+    methods: {
+        toScalar(house) {
+            return (house);
+        },
+
+        getCellType(col, row, grid) {
+            let type = grid.cells[row*9 + col];
+            switch (type) {
+                case "X": return "images/berg.jpg";
+                case "1": return "images/hero.png";
+                case "2": return "images/hero.png";
+                case " ": return "images/grass.jpg";
+                case ")": return "images/gold.jpg";
+                case "F": return "images/drake.jpg";
+                default: return   "images/lich.jpg";
+            }
+        },
     },
 
 });
