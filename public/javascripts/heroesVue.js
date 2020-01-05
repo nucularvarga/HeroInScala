@@ -29,7 +29,7 @@ function toScalar(house, cell) {
 function cell(houseIndex, cellIndex) {
     return toScalar(houseIndex,cellIndex), toScalar(houseIndex,cellIndex)
 }
-/*
+
 function updateField(size, grid) {
     let html ="";
     for (let row=0; row < size; row++) {
@@ -41,7 +41,7 @@ function updateField(size, grid) {
     }
     $("#gr").html(html);
 }
-
+/*
 function getCellType(col, row, grid) {
     let type = grid.cells[row*9 + col];
     switch (type) {
@@ -175,7 +175,6 @@ function initbutton(grid) {
         }
     }
 }
-
 {
     class Grid {
         constructor(size) {
@@ -191,6 +190,8 @@ function initbutton(grid) {
         }
     }
 
+    let globalJSON;
+
     function loadJson() {
         $.ajax({
             method: "GET",
@@ -202,105 +203,107 @@ function initbutton(grid) {
                 grid.fill(result, result.field.x);
                 // updateGrid(grid);
                 // initbutton(grid);
-                console.log(grid);
+                console.log("json ajax" + grid.cells);
+                globalJSON = grid;
             }
         });
-    }
-}
 
-
-
-
-
-
-function connectWebSocket() {
-    let websocket = new WebSocket("ws://localhost:9000/websocket");
-    websocket.setTimeout;
-
-    websocket.onopen = function(event) {
-        console.log("Connected to Websocket");
-
-        const heroesGame = new Vue({
-            el:'#heroes-game'
-        });
-    };
-
-    websocket.onclose = function () {
-        console.log('Connection with Websocket Closed!');
-    };
-
-    websocket.onerror = function (error) {
-        console.log('Error in Websocket Occured: ' + error);
-    };
-
-    websocket.onmessage = function (e) {
-        if (typeof e.data === "string") {
-
-            console.log("JSON RECIEVED!");
-            console.log(e.data);
-/*            let json = JSON.parse(e.data);
-            let grid = new Grid(json.field.x);
-            grid.fill(json, json.field.x);
-            updateFieldButton(9, grid);
-            //initbutton(grid);*/
-
-
-        }
-
-    };
-}
-
-
-
-function cells(){
-    let heroesCell = [];
-    for(let row = 0; row < 9; row ++){
-        for(let col = 0; col < 9; col ++){
-            heroesCell.push({cell:cell(row,col)});
-        }
     }
 
-    return heroesCell;
-}
 
-$(document).ready(function ()
-{
+    function connectWebSocket() {
+        let websocket = new WebSocket("ws://localhost:9000/websocket");
+        websocket.setTimeout;
 
-    loadJson();
-    connectWebSocket();
-
+        websocket.onopen = function (event) {
+            console.log("Connected to Websocket");
 
 
-});
+        };
 
-/*Vue.component('heroes-button-bar', {
-    template:`
-        <div class="buttonbarcontainer">
-            <label>
-                Highlight
-            </label>
-            <div  class=" btn-group" >
-                <a v-for="item in menuItems" v-bind:href="item.link" class="btn btn-primary"> {{item.text}} </a>
+        websocket.onclose = function () {
+            console.log('Connection with Websocket Closed!');
+        };
+
+        websocket.onerror = function (error) {
+            console.log('Error in Websocket Occured: ' + error);
+        };
+
+        websocket.onmessage = function (e) {
+            if (typeof e.data === "string") {
+
+                console.log("JSON RECIEVED!");
+                console.log("json websiocket" + e.data);
+                /*            let json = JSON.parse(e.data);
+                            let grid = new Grid(json.field.x);
+                            grid.fill(json, json.field.x);
+                            updateFieldButton(9, grid);
+                            //initbutton(grid);*/
+
+
+            }
+
+        };
+    }
+
+
+    function cells() {
+        let heroesCell = new Array(9);
+        for (let row = 0; row < 9; row++) {
+            heroesCell[row] = [];
+            for (let col = 0; col < 9; col++) {
+                heroesCell[row][col] = ({cell: (row, col)});
+            }
+        }
+        console.log(heroesCell);
+        return heroesCell;
+    }
+
+    function firstFunction(_callback){
+        // do some asynchronous work
+        loadJson();
+        console.log('i am called first!');
+        // and when the asynchronous stuff is complete
+        _callback();
+    }
+
+    $(document).ready(function () {
+         firstFunction(() => {
+             const heroesGame = new Vue({
+                 el: '#heroes-game'
+             });
+             console.log('huzzah, I\'m done!')}
+            );
+       connectWebSocket();
+    });
+
+    /*Vue.component('heroes-button-bar', {
+        template:`
+            <div class="buttonbarcontainer">
+                <label>
+                    Highlight
+                </label>
+                <div  class=" btn-group" >
+                    <a v-for="item in menuItems" v-bind:href="item.link" class="btn btn-primary"> {{item.text}} </a>
+                </div>
             </div>
-        </div>
-    `,
-    data: function () {
-        return {
-            menuItems: sudokuHighlightButtons
+        `,
+        data: function () {
+            return {
+                menuItems: sudokuHighlightButtons
+            }
         }
-    }
 
-});*/
+    });*/
 
-Vue.component('heroes-field', {
-    template:`
+    Vue.component('heroes-field', {
+        template: `
      <div class = "playField">
         <div class="container-fluid" id = "gr">
-                <div v-for="col in grid">
+                <div v-for="n,col in grid">
                     <div class="row">
-                         <div v-for="cell in col" v-bind:id= toScalar(cell)>
-                             {{cell}},{{col.cell}}
-                             <img src= "./assets/images/berg.jpg">
+                         <div v-for="cell in n">
+                             <img :src = "getCellType(col, cell.cell)">
                              </div>
                          </div>
                      </div>    
@@ -308,32 +311,45 @@ Vue.component('heroes-field', {
         </div>
       </div> 
     `,
-    data: function () {
-        return {
-            grid: cells()
-        }
-    },
-
-    methods: {
-        toScalar(house) {
-            return (house);
-        },
-
-        getCellType(col, row, grid) {
-            let type = grid.cells[row*9 + col];
-            switch (type) {
-                case "X": return "images/berg.jpg";
-                case "1": return "images/hero.png";
-                case "2": return "images/hero.png";
-                case " ": return "images/grass.jpg";
-                case ")": return "images/gold.jpg";
-                case "F": return "images/drake.jpg";
-                default: return   "images/lich.jpg";
+        data:
+            function() {
+                return {
+                    grid: cells()
+                }
             }
-        },
-    },
+        ,
 
-});
+        methods: {
+            toScalar(house) {
+                return (house);
+            },
+
+            getCellType(col, row) {
+
+                console.log(row + "," + col)
+                console.log("json loaded" + globalJSON)
+                switch (row) {
+                    case "X":
+                        return "./assets/images/berg.jpg";
+                    case "1":
+                        return "./assets/images/hero.png";
+                    case "2":
+                        return "./assets/images/hero.png";
+                    case " ":
+                        return "./assets/images/grass.jpg";
+                    case ")":
+                        return "./assets/images/gold.jpg";
+                    case "F":
+                        return "./assets/images/drake.jpg";
+                    default:
+                        return "./assets/images/lich.jpg";
+                }
+            },
+        },
+
+    });
+
+}
 
 
 
