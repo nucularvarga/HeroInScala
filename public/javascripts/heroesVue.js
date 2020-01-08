@@ -191,6 +191,7 @@ function initbutton(grid) {
     }
 
     let globalJSON;
+    let globalCounter = 0;
 
     function loadJson() {
         $.ajax({
@@ -272,9 +273,10 @@ function initbutton(grid) {
              console.log('huzzah, I\'m done!')}
             );
        connectWebSocket();
-        new Vue({
+        let app = new Vue({
             el: '#heroes-game'
         });
+        app.handleClick(globalCounter);
     });
 
     /*Vue.component('heroes-button-bar', {
@@ -299,7 +301,8 @@ function initbutton(grid) {
     Vue.component('heroes-field', {
         template: `
      <div class = "playField">
-        <button v-on="counter += 5">Add1 {{counter}}</button>
+        <button v-on:click ="handleClick(counter++)" >butoooooon {{ counter }}</button>
+        <p>The button above has been clicked {{ counter }} times</p>
         <div class="container-fluid" id = "gr">
                 <div v-for="n,col in grid">
                     <div class="row">
@@ -316,20 +319,20 @@ function initbutton(grid) {
             function() {
                 return {
                     grid: cells(),
-                    counter: 2
+                    counter: 0
                 }
             }
         ,
 
         methods: {
-            toScalar(house) {
+            toScalar: function(house) {
                 return (house);
             },
 
-            getCellType(col, row) {
+            getCellType: function(col, row) {
 
-                console.log(row + "," + col)
-                console.log("json loaded" + globalJSON)
+                console.log(row + "," + col);
+                console.log("json loaded" + globalJSON);
                 switch (row) {
                     case "X":
                         return "./assets/images/berg.jpg";
@@ -347,7 +350,14 @@ function initbutton(grid) {
                         return "./assets/images/lich.jpg";
                 }
             },
+
+            handleClick: function(globalCounter){
+                //globalCounter ++;
+                // alert("meesagadada");
+                return globalCounter;
+            },
         },
+
 
     });
 
