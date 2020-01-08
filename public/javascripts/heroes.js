@@ -221,114 +221,43 @@ function connectWebSocket() {
 }
 */
 
-/*function moveUpJs() {
-    return
-}*/
-/* let moveUp = document.getElementById("MoveUp");
-moveUp.addEventListener("click", moveUpJs,true);*/
 
-/*$("#buttonUp").click(
-    function() {
-        window.location = "http://localhost:9000/buttonUp";
+
+
+Vue.component('sudoku-highlight-button-bar', {
+    template:`
+        <div class="buttonbarcontainer">
+            <label>
+                Highlight
+            </label>
+            <h1>Hallo</h1>
+            <div  class=" btn-group" >
+                <a v-for="item in menuItems" v-bind:href="item.link" class="btn btn-primary"> {{item.text}} </a>
+            </div>
+        </div>
+    `,
+    data: function () {
+        return {
+            menuItems: sudokuHighlightButtons
+        }
     }
-);*/
 
-/*
+})
 
-/!**
- * @return {string}
- *!/
-function moveDownJs() {
-    alert("tolle knolle");
-    return window.location = "http://localhost:9000/buttonDown";
-}
-let moveDown = document.getElementById("MoveDown");
-moveDown.addEventListener("click", moveDownJs,true);
+Vue.component('sudoku-field', {
+    template:`
+        <div class="gamecontainer">
+            <div class="game">
+                <div v-for="house in houses" class="house size9">
+                    <div v-for="cell in house" class="cell" v-bind:id="cell.scalar"></div>
+                </div>
+            </div>
+        </div>
+    `,
+    data: function () {
+        return {
+            houses: sudokuHouses
+        }
+    },
 
-/!**
- * @return {string}
- *!/
-function moveRightJs() {
-    return window.location ="http://localhost:9000/buttonLeft";
-}
-let moveRight = document.getElementById("MoveLeft");
-moveRight.addEventListener("click", moveRightJs,true);
-
-/!**
- * @return {string}
- *!/
-function moveLeftJs() {
-    return window.location ="http://localhost:9000/buttonRight";
-}
-let moveLeft = document.getElementById("MoveRight");
-moveLeft.addEventListener("click", moveLeftJs, true);
-
-/!**
- * @return {string}
- *!/
-function lookUpJs() {
-    return window.location ="http://localhost:9000/lookUp";
-}
-let lookUp = document.getElementById("lookUp");
-lookUp.addEventListener("click", lookUpJs, true);
-
-/!**
- * @return {string}
- *!/
-function lookDownJs() {
-    return window.location ="http://localhost:9000/lookDown";
-}
-let lookDown = document.getElementById("lookDown");
-lookDown.addEventListener("click", lookUpJs, true);
-/!**
- * @return {string}
- *!/
-function lookRightJs() {
-    return window.location ="http://localhost:9000/lookRight";
-}
-let lookRight = document.getElementById("lookRight");
-lookRight.addEventListener("click", lookRightJs, true);
-/!**
- * @return {string}
- *!/
-function lookLeftJs() {
-    return window.location ="http://localhost:9000/lookLeft";
-}
-let lookLeft = document.getElementById("lookLeft");
-lookLeft.addEventListener("click", lookLeftJs, true);
-*/
-
-
-/*
-let size = 9;
-
-function toScalar(house, cell) {
-    return (house*cell).toString();
-}
-
-function cell(houseIndex, cellIndex) {
-    return toScalar(houseIndex,cellIndex), toScalar(houseIndex,cellIndex)
-}
-
-
-
-let grid = new Grid(gameJson.size)
-grid.fill(gameJson)
-
-
-function fillGrid(grid) {
-    for (let scalar=0; scalar <grid.size*grid.size;scalar++) {
-        $("#scalar"+scalar).html(grid.cells[scalar]);
-    }
-}
-
-function setCell(scalar, value) {
-    console.log("Setting cell " + scalar + " to " + value);
-    grid.cells[scalar] = value;
-    $("#scalar"+scalar).html(" "+grid.cells[scalar]);
-    $("#scalar"+scalar).off("click");
-
-}
-*/
-
-
+})

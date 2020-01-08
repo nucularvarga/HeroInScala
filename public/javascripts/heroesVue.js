@@ -269,12 +269,12 @@ function initbutton(grid) {
 
     $(document).ready(function () {
          firstFunction(() => {
-             const heroesGame = new Vue({
-                 el: '#heroes-game'
-             });
              console.log('huzzah, I\'m done!')}
             );
        connectWebSocket();
+        new Vue({
+            el: '#heroes-game'
+        });
     });
 
     /*Vue.component('heroes-button-bar', {
@@ -299,6 +299,7 @@ function initbutton(grid) {
     Vue.component('heroes-field', {
         template: `
      <div class = "playField">
+        <button v-on="counter += 5">Add1 {{counter}}</button>
         <div class="container-fluid" id = "gr">
                 <div v-for="n,col in grid">
                     <div class="row">
@@ -314,7 +315,8 @@ function initbutton(grid) {
         data:
             function() {
                 return {
-                    grid: cells()
+                    grid: cells(),
+                    counter: 2
                 }
             }
         ,
