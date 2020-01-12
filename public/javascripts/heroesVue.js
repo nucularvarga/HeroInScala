@@ -8,7 +8,7 @@ $(document).ready(function() {
 */
 
 //import Vue from 'vue';
-
+{
 {
     const sudokuHighlightButtons = [{text: "None", link: "/highlight/0"}];
 
@@ -41,7 +41,7 @@ function updateField(size, grid) {
     }
     $("#gr").html(html);
 }
-/*
+
 function getCellType(col, row, grid) {
     let type = grid.cells[row*9 + col];
     switch (type) {
@@ -157,7 +157,7 @@ function initbutton(grid) {
         }
     })});
 }
-*/
+
 
 {
     class Cell {
@@ -175,7 +175,7 @@ function initbutton(grid) {
         }
     }
 }
-{
+
     class Grid {
         constructor(size) {
             this.size = size;
@@ -191,7 +191,7 @@ function initbutton(grid) {
     }
 
     let globalJSON;
-    let globalCounter = 0;
+
 
     function loadJson() {
         $.ajax({
@@ -202,13 +202,12 @@ function initbutton(grid) {
             success: function (result) {
                 let grid = new Grid(result.field.x);
                 grid.fill(result, result.field.x);
-                // updateGrid(grid);
-                // initbutton(grid);
+                //updateGrid(grid);
+                initbutton(grid);
                 console.log("json ajax" + grid.cells);
                 globalJSON = grid;
             }
         });
-
     }
 
 
@@ -218,8 +217,6 @@ function initbutton(grid) {
 
         websocket.onopen = function (event) {
             console.log("Connected to Websocket");
-
-
         };
 
         websocket.onclose = function () {
@@ -240,8 +237,6 @@ function initbutton(grid) {
                             grid.fill(json, json.field.x);
                             updateFieldButton(9, grid);
                             //initbutton(grid);*/
-
-
             }
 
         };
@@ -273,10 +268,13 @@ function initbutton(grid) {
              console.log('huzzah, I\'m done!')}
             );
        connectWebSocket();
+
         let app = new Vue({
             el: '#heroes-game'
         });
-        app.handleClick(globalCounter);
+        app.testcounter = 2;
+        console.log("testcounter " + app.testcounter);
+        app.handleClick(app.testcounter);
     });
 
     /*Vue.component('heroes-button-bar', {
@@ -303,6 +301,10 @@ function initbutton(grid) {
      <div class = "playField">
         <button v-on:click ="handleClick(counter++)" >butoooooon {{ counter }}</button>
         <p>The button above has been clicked {{ counter }} times</p>
+        <button class="btn btn-secondary btn-block responsive-width" type="button" id="buttonUp" >MoveUp</button>
+        <button class="btn btn-secondary btn-block responsive-width" type="button" id="buttonDown">MoveDown</button>
+        <button class="btn btn-secondary btn-block responsive-width" type="button" id="buttonLeft">MoveLeft</button>
+        <button class="btn btn-secondary btn-block responsive-width" type="button" id="buttonRight">MoveRight</button>
         <div class="container-fluid" id = "gr">
                 <div v-for="n,col in grid">
                     <div class="row">
@@ -331,8 +333,7 @@ function initbutton(grid) {
 
             getCellType: function(col, row) {
 
-                console.log(row + "," + col);
-                console.log("json loaded" + globalJSON);
+
                 switch (row) {
                     case "X":
                         return "./assets/images/berg.jpg";
@@ -353,14 +354,13 @@ function initbutton(grid) {
 
             handleClick: function(globalCounter){
                 //globalCounter ++;
-                // alert("meesagadada");
+                let grida = new Grid(9);
+                initbutton(grida);
+                alert();
                 return globalCounter;
             },
         },
-
-
     });
-
 }
 
 
