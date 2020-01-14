@@ -51,7 +51,7 @@ function getCellType(col, row, grid) {
         case " ": return "images/grass.jpg";
         case ")": return "images/gold.jpg";
         case "F": return "images/drake.jpg";
-        default: return   "images/lich.jpg";
+        default: return   "images/gras.jpg";
     }
 }
 
@@ -64,7 +64,7 @@ function getCellTypeB(col, row, grid) {
         case " ": return "images/grass.jpg";
         case ")": return "images/gold.jpg";
         case "F": return "images/drake.jpg";
-        default: return   "images/lich.jpg";
+        default: return   "images/gras.jpg";
     }
 }
 
@@ -232,11 +232,13 @@ function initbutton(grid) {
 
                 console.log("JSON RECIEVED!");
                 console.log("json websiocket" + e.data);
-                /*            let json = JSON.parse(e.data);
+
+                        let json = JSON.parse(e.data);
                             let grid = new Grid(json.field.x);
                             grid.fill(json, json.field.x);
+                            //updateField(9,grid);
                             updateFieldButton(9, grid);
-                            //initbutton(grid);*/
+                            //initbutton(grid);
             }
 
         };
@@ -255,19 +257,16 @@ function initbutton(grid) {
         return heroesCell;
     }
 
-    function firstFunction(_callback){
+/*    function firstFunction(_callback){
         // do some asynchronous work
-        loadJson();
         console.log('i am called first!');
         // and when the asynchronous stuff is complete
         _callback();
-    }
+    }*/
 
     $(document).ready(function () {
-         firstFunction(() => {
-             console.log('huzzah, I\'m done!')}
-            );
-       connectWebSocket();
+        loadJson();
+        connectWebSocket();
 
         let app = new Vue({
             el: '#heroes-game'
