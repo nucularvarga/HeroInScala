@@ -9,19 +9,6 @@ $(document).ready(function() {
 
 //import Vue from 'vue';
 {
-{
-    const sudokuHighlightButtons = [{text: "None", link: "/highlight/0"}];
-
-    sudokuHighlightButtons.push({text: "moveUp", link: "/buttonUp"});
-    sudokuHighlightButtons.push({text: "moveDown", link: "/buttonDown"});
-    sudokuHighlightButtons.push({text: "moveLeft", link: "/buttonLeft"});
-    sudokuHighlightButtons.push({text: "moveRight", link: "/buttonLeft"});
-    sudokuHighlightButtons.push({text: "LookUp", link: "/highlight/"});
-    sudokuHighlightButtons.push({text: "LookDown", link: "/highlight/"});
-    sudokuHighlightButtons.push({text: "LookLeft", link: "/highlight/"});
-    sudokuHighlightButtons.push({text: "LookRight", link: "/highlight/"});
-}
-
 function toScalar(house, cell) {
     return (house*cell).toString();
 }
@@ -126,7 +113,7 @@ function initbutton(grid) {
             grid.fill(result, result.field.x);
             updateField(9, grid)
             //  for(let x=0; x<81; ++x)
-            //    alert(x+ "= " + grid.cells[x])
+            //   alert(x+ "= " + grid.cells[x])
         }
     })});
     $("#LookDown").click(function() {$.ajax( {
@@ -257,13 +244,6 @@ function initbutton(grid) {
         return heroesCell;
     }
 
-/*    function firstFunction(_callback){
-        // do some asynchronous work
-        console.log('i am called first!');
-        // and when the asynchronous stuff is complete
-        _callback();
-    }*/
-
     $(document).ready(function () {
         loadJson();
         connectWebSocket();
@@ -272,33 +252,14 @@ function initbutton(grid) {
             el: '#heroes-game'
         });
         app.testcounter = 2;
-        console.log("testcounter " + app.testcounter);
+        //console.log("testcounter " + app.testcounter);
         app.handleClick(app.testcounter);
     });
 
-    /*Vue.component('heroes-button-bar', {
-        template:`
-            <div class="buttonbarcontainer">
-                <label>
-                    Highlight
-                </label>
-                <div  class=" btn-group" >
-                    <a v-for="item in menuItems" v-bind:href="item.link" class="btn btn-primary"> {{item.text}} </a>
-                </div>
-            </div>
-        `,
-        data: function () {
-            return {
-                menuItems: sudokuHighlightButtons
-            }
-        }
-
-    });*/
-
     Vue.component('heroes-field', {
         template: `
-        <div class = "container">
-            <div class="col-sm-12 col-md-auto col-lg-auto col-xl-8">
+        <div class = "b-container">
+            <div class="b-col-sm-12 b-ol-md-auto b-col-lg-auto b-col-xl-8">
                      <div class="container-fluid" id = "gr">
                         <div v-for="n,col in grid">
                             <div class="row">
@@ -386,7 +347,6 @@ function initbutton(grid) {
             },
 
             handleClick: function(globalCounter){
-                //globalCounter ++;
                 let grida = new Grid(9);
                 initbutton(grida);
                 alert();
