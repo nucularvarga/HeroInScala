@@ -21,11 +21,11 @@
 @main("heroes"){
     <script src='@routes.Assets.versioned("javascripts/vue.js")'></script>
     <script src='@routes.Assets.versioned("javascripts/heroesVue.js")'></script>
-@*    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>*@
-
+    <script src='@routes.Assets.versioned("stylesheets/wui.css")'></script>
     <div id="heroes-game" class="pagecontainer">
 
         <heroes-field></heroes-field>
+        <myButtons></myButtons>
 
     </div>
    @* <html>

@@ -298,23 +298,57 @@ function initbutton(grid) {
 
     Vue.component('heroes-field', {
         template: `
-     <div class = "playField">
-        <button v-on:click ="handleClick(counter++)" >butoooooon {{ counter }}</button>
-        <p>The button above has been clicked {{ counter }} times</p>
-        <button class="btn btn-secondary btn-block responsive-width" type="button" id="buttonUp" >MoveUp</button>
-        <button class="btn btn-secondary btn-block responsive-width" type="button" id="buttonDown">MoveDown</button>
-        <button class="btn btn-secondary btn-block responsive-width" type="button" id="buttonLeft">MoveLeft</button>
-        <button class="btn btn-secondary btn-block responsive-width" type="button" id="buttonRight">MoveRight</button>
-        <div class="container-fluid" id = "gr">
-                <div v-for="n,col in grid">
-                    <div class="row">
-                         <div v-for="cell in n">
-                             <img :src = "getCellType(col, cell.cell)">
+        <div class = "container">
+            <div class="col-sm-12 col-md-auto col-lg-auto col-xl-8">
+                     <div class="container-fluid" id = "gr">
+                        <div v-for="n,col in grid">
+                            <div class="row">
+                                 <div v-for="cell in n">
+                                     <img :src = "getCellType(col, cell.cell)">
+                                  </div>
                              </div>
-                         </div>
-                     </div>    
-                </div>
-        </div>
+                          </div>    
+                    </div>
+            </div>
+            <div class="col-sm-0 col-md-auto col-lg-auto col-xl-4 sidenav">
+                            <div class="row flex">
+                                <div class="col-sm-6 ">
+                                    <hr>
+                                    <ul class="flex-column">
+                                        <li class ="classWithPad">
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" id="buttonUp" >MoveUp</button>
+                                        </li>
+                                        <li class ="classWithPad">
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" id="buttonDown">MoveDown</button>
+                                        </li>
+                                        <li class ="classWithPad">
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" id="buttonLeft">MoveLeft</button>
+                                        </li>
+                                        <li class ="classWithPad">
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" id="buttonRight">MoveRight</button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-6 ">
+                                    <hr>
+                                    <ul class="flex-column">
+                                        <li class ="classWithPad">
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" id="LookUp" >LookUp</button></a>
+                                        </li>
+                                        <li class ="classWithPad">
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" id="LookDown" >LookDown</button></a>
+                                        </li>
+                                        <li class ="classWithPad">
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" id="LookLeft" >LookLeft</button></a>
+                                        </li>
+                                        <li class ="classWithPad">
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" id="LookRight" >LookRight</button></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                  </div>  
+            </div>
       </div> 
     `,
         data:
