@@ -93,6 +93,12 @@ class HeroesInScala @Inject()(cc: ControllerComponents)(implicit webJarsUtil: We
   def heroes = Action {
     Ok(HeroesAsText)
   }
+
+  def offline() = Action {
+    implicit request: Request[AnyContent] =>
+      Ok(views.html.offline())
+  }
+
   var participants: Array[ActorRef] = Array.empty[ActorRef]
   def socket = WebSocket.accept[String, String] { request =>
 

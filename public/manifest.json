@@ -2,7 +2,7 @@
  "name": "HTWG Heroes",
  "short_name": "Heroes",
  "scope": "/",
- "start_url": "/about",
+ "start_url": "/",
  "display": "standalone",
  "description": "HTWG Heroes",
  "icons": [{
