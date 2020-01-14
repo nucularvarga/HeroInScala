@@ -1,0 +1,13 @@
+{
+ "name": "HTWG Heroes",
+ "short_name": "Heroes",
+ "scope": "/",
+ "start_url": "/about",
+ "display": "standalone",
+ "description": "HTWG Heroes",
+ "icons": [{
+   "src": "images/heroesIcon.png",
+   "sizes": "512x512",
+   "type": "image/png"
+   }]
+ }
