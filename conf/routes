@@ -4,7 +4,7 @@
 
 # Heroes Stuff
 
-#GET     /                           controllers.HeroesInScala.init
+GET     /init                         controllers.HeroesInScala.init
 # An example controller showing how to use dependency injection
 
 GET     /about                      controllers.HeroesInScala.about
@@ -13,24 +13,24 @@ GET     /command                    controllers.HeroesInScala.command(cmd: Strin
 
 GET     /json                       controllers.HeroesInScala.getjson
 
-#GET     /buttonLeft                   controllers.HeroesInScala.moveLeft
+GET     /buttonLeft                   controllers.HeroesInScala.moveLeft
 
-#GET     /buttonRight                   controllers.HeroesInScala.moveRight
+GET     /buttonRight                   controllers.HeroesInScala.moveRight
 
-#GET     /buttonDown                   controllers.HeroesInScala.moveDown
+GET     /buttonDown                   controllers.HeroesInScala.moveDown
 
-#GET     /buttonUp                   controllers.HeroesInScala.moveUp
+GET     /buttonUp                   controllers.HeroesInScala.moveUp
 
 
-#GET     /lookUp                     controllers.HeroesInScala.lookUp
+GET     /lookUp                     controllers.HeroesInScala.lookUp
 
-#GET     /lookLeft                   controllers.HeroesInScala.lookLeft
+GET     /lookLeft                   controllers.HeroesInScala.lookLeft
 
-#GET     /lookRight                   controllers.HeroesInScala.lookRight
+GET     /lookRight                   controllers.HeroesInScala.lookRight
 
-#GET     /lookDown                   controllers.HeroesInScala.lookDown
+GET     /lookDown                   controllers.HeroesInScala.lookDown
 
-#GET     /websocket                  controllers.HeroesInScala.socket
+GET     /websocket                  controllers.HeroesInScala.socket
 
 GET  /service-worker.js controllers.Assets.at(path="/public", file="javascripts/service-worker.js")
 GET  /manifest.json     controllers.Assets.at(path="/public", file="manifest.json")

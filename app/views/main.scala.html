@@ -3,7 +3,6 @@
 @import play.twirl.api.Html
 @import org.webjars.play.WebJarsUtil
 @import controllers.AssetsFinder
-@import views.html.helper._
 
 @(title: String, user: Option[models.User] = None)(content: Html)(implicit request: RequestHeader, messages: Messages, assets: AssetsFinder, webJarsUtil: WebJarsUtil)
 
@@ -15,14 +14,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="shortcut icon" type="image/png" href="@assets.path("images/favicon.png")">
         <title>@title</title>
-        <link @{CSPNonce.attr} href="//fonts.googleapis.com/css?family=Roboto|Montserrat:400,700|Open+Sans:400,300,600" rel="stylesheet">
-        <link @{CSPNonce.attr} href="//cdnjs.cloudflare.com/ajax/libs/ionicons/1.5.2/css/ionicons.min.css" rel="stylesheet">
-        @webJarsUtil.locate("bootstrap.min.css").css(CSPNonce.attrMap)
-        <link @{CSPNonce.attr} rel="stylesheet" href="@assets.path("styles/main.css")">
+        <link href="//fonts.googleapis.com/css?family=Roboto|Montserrat:400,700|Open+Sans:400,300,600" rel="stylesheet" type="text/css">
+        <link href="//cdnjs.cloudflare.com/ajax/libs/ionicons/1.5.2/css/ionicons.min.css" rel="stylesheet" type="text/css">
+        @webJarsUtil.locate("bootstrap.min.css").css()
+        @webJarsUtil.locate("bootstrap.min.css").css()
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <link rel="manifest" type="application/manifest+json" href="@assets.path("manifest.json")" crossorigin="use-credentials">
+        <link rel="stylesheet" type="text/css" href="@assets.path("styles/main.css")">
             <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
             <!--[if lt IE 9]>
-            <script @{CSPNonce.attr} src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script @{CSPNonce.attr} src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
             <![endif]-->
     </head>
     <body>
@@ -31,7 +33,7 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="@controllers.routes.ApplicationController.index">Silhouette Seed Template</a>
+                <a class="navbar-brand" href="@controllers.routes.ApplicationController.index">HTWG Heroes</a>
 
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
@@ -80,9 +82,10 @@
                 @content
             </div>
         </main>
-        @webJarsUtil.locate("jquery.min.js").script(CSPNonce.attrMap)
-        @webJarsUtil.locate("bootstrap.min.js").script(CSPNonce.attrMap)
-        <script @{CSPNonce.attr} src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
-        <script @{CSPNonce.attr} src="@assets.path("javascripts/zxcvbnShim.js")"></script>
+        @webJarsUtil.locate("jquery.min.js").script()
+        @webJarsUtil.locate("bootstrap.min.js").script()
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js"></script>
+        <script src="@assets.path("javascripts/zxcvbnShim.js")"></script>
+        <script type="text/javascript" src="@assets.path("javascripts/registerServiceWorker.js")"></script>
     </body>
 </html>

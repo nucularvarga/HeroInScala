@@ -20,8 +20,7 @@ import scala.concurrent.{ ExecutionContext, Future }
  */
 class TotpController @Inject() (
   scc: SilhouetteControllerComponents,
-  totp: views.html.totp,
-  home: views.html.home
+  totp: views.html.totp
 )(implicit
   webJarsUtil: WebJarsUtil,
   assets: AssetsFinder,
@@ -46,7 +45,7 @@ class TotpController @Inject() (
     val totpInfo = credentials.totpInfo
     val formData = TotpSetupForm.form.fill(TotpSetupForm.Data(totpInfo.sharedKey, totpInfo.scratchCodes, credentials.scratchCodesPlain))
     authInfoRepository.find[GoogleTotpInfo](request.identity.loginInfo).map { totpInfoOpt =>
-      Ok(views.html.index(user, totpInfoOpt, Some((formData, credentials))))
+      Ok(views.html.mainheroes(user, totpInfoOpt, Some((formData, credentials))))
     }
   }
 
@@ -68,7 +67,7 @@ class TotpController @Inject() (
     val user = request.identity
     TotpSetupForm.form.bindFromRequest.fold(
       form => authInfoRepository.find[GoogleTotpInfo](request.identity.loginInfo).map { totpInfoOpt =>
-        BadRequest(home(user, totpInfoOpt))
+        BadRequest(views.html.mainheroes(user, totpInfoOpt))
       },
       data => {
         totpProvider.authenticate(data.sharedKey, data.verificationCode).flatMap {

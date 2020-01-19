@@ -1,6 +1,0 @@
-[debug] Copy resource mappings: 
-[debug] 	(C:\Users\Janko\IdeaProject\play-silhouette-seed\conf\application.conf,C:\Users\Janko\IdeaProject\play-silhouette-seed\target\scala-2.12\classes\application.conf)
-[debug] 	(C:\Users\Janko\IdeaProject\play-silhouette-seed\conf\application.prod.conf,C:\Users\Janko\IdeaProject\play-silhouette-seed\target\scala-2.12\classes\application.prod.conf)
-[debug] 	(C:\Users\Janko\IdeaProject\play-silhouette-seed\conf\messages,C:\Users\Janko\IdeaProject\play-silhouette-seed\target\scala-2.12\classes\messages)
-[debug] 	(C:\Users\Janko\IdeaProject\play-silhouette-seed\conf\routes,C:\Users\Janko\IdeaProject\play-silhouette-seed\target\scala-2.12\classes\routes)
-[debug] 	(C:\Users\Janko\IdeaProject\play-silhouette-seed\conf\silhouette.conf,C:\Users\Janko\IdeaProject\play-silhouette-seed\target\scala-2.12\classes\silhouette.conf)

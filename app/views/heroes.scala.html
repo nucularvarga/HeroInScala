@@ -10,20 +10,18 @@
 @(controller:de.htwg.se.heroes.controllerComponent.ControllerInterface, user: models.User, totpInfoOpt: Option[GoogleTotpInfo], totpDataOpt: Option[(Form[Data], GoogleTotpCredentials)] = None)(implicit request: RequestHeader,
         messages: Messages, webJarsUtil: WebJarsUtil, assets: AssetsFinder)
 
-@implicitFieldConstructor = @{
-    b4.vertical.fieldConstructor()
-}
-
-
-@main("heroes"){
-    <script src='@assets.path("javascripts/vue.js")'></script>
-    <script src='@assets.path("javascripts/heroesVue.js")'></script>
-    <script src='@assets.path("stylesheets/wui.css")'></script>
+@main("HTWG Heroes"){
+<div main class="container">
+    <p>hallo</p>
+</div>
     <div id="heroes-game" class="pagecontainer">
 
         <heroes-field></heroes-field>
 
     </div>
+    <script src='@assets.path("javascripts/vue.js")'></script>
+    <script src='@assets.path("javascripts/heroesVue.js")'></script>
+    <script src='@assets.path("stylesheets/wui.css")'></script>
    @* <html>
     <head>
     </head>

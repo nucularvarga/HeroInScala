@@ -7,11 +7,10 @@ import play.api.libs.json.JsObject
 
 import scala.swing.Publisher
 
-
-trait ControllerInterface extends Publisher{
+trait ControllerInterface extends Publisher {
   def init(number: String): Unit
   def createNewField(size: Int): Unit
-  def action(d : UIEvent): JsObject
+  def action(d: UIEvent): JsObject
   def handle(e: UIEvent): Unit
   def showStats(): Unit
   def openShop(e: UIEvent, number: Int): Unit
@@ -21,15 +20,14 @@ trait ControllerInterface extends Publisher{
   def redo: Unit
   def playgroundToString: String
   def getMessage: String
-  def getCell(x: Int, y:Int): Cell
+  def getCell(x: Int, y: Int): Cell
   def show(e: UIEvent): JsObject
   def viewToString: String
-  def getMatrixCell(x:Int, y: Int): Cell
+  def getMatrixCell(x: Int, y: Int): Cell
   def selectEnemy(x: Int, y: Int): Unit
   def getMode: GameMode
   def getJson: JsObject
 }
-
 
 import scala.swing.event.Event
 

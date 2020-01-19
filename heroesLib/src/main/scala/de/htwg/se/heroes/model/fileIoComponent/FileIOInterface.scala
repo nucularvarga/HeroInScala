@@ -1,7 +1,7 @@
 
 package de.htwg.se.heroes.model.fileIoComponent
 
-import de.htwg.se.heroes.model.fieldComponent.{ArenaInterface, FieldInterface}
+import de.htwg.se.heroes.model.fieldComponent.{ ArenaInterface, FieldInterface }
 import de.htwg.se.heroes.model.playerComponent.PlayerListInterface
 import play.api.libs.json.JsObject
 

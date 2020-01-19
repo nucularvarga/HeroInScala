@@ -53,7 +53,7 @@ class HeroesInScala @Inject() (cc: ControllerComponents, silhouette: Silhouette[
       Ok(gameController.getJson);
     }
   }
-  /*
+
   def moveUp = silhouette.SecuredAction.async { implicit request: SecuredRequest[DefaultEnv, AnyContent] =>
     authInfoRepository.find[GoogleTotpInfo](request.identity.loginInfo).map { totpInfoOpt =>
       Ok(gameController.action(UIEvent.MoveUp))
@@ -165,5 +165,5 @@ class HeroesInScala @Inject() (cc: ControllerComponents, silhouette: Silhouette[
       case HandlerResult(r, None) => Left(r)
     }
   }
-*/
+
 }

@@ -1,30 +1,44 @@
 package controllers
 
-import com.mohiva.play.silhouette.api.LogoutEvent
-import com.mohiva.play.silhouette.api.actions._
+import com.mohiva.play.silhouette.api.actions.SecuredRequest
+import com.mohiva.play.silhouette.api.repositories.AuthInfoRepository
+import com.mohiva.play.silhouette.api.{ LogoutEvent, Silhouette }
 import com.mohiva.play.silhouette.impl.providers.GoogleTotpInfo
 import javax.inject.Inject
-import play.api.mvc._
-import utils.route.Calls
+import org.webjars.play.WebJarsUtil
+import play.api.i18n.I18nSupport
+import play.api.mvc.{ AbstractController, AnyContent, ControllerComponents }
+import utils.auth.DefaultEnv
 
 import scala.concurrent.ExecutionContext
 
 /**
  * The basic application controller.
+ *
+ * @param components  The Play controller components.
+ * @param silhouette  The Silhouette stack.
+ * @param webJarsUtil The webjar util.
+ * @param assets      The Play assets finder.
  */
 class ApplicationController @Inject() (
-  scc: SilhouetteControllerComponents,
-  home: views.html.home
-)(implicit ex: ExecutionContext) extends SilhouetteController(scc) {
+  components: ControllerComponents,
+  silhouette: Silhouette[DefaultEnv],
+  authInfoRepository: AuthInfoRepository
+)(
+  implicit
+  webJarsUtil: WebJarsUtil,
+  assets: AssetsFinder,
+  ex: ExecutionContext
+) extends AbstractController(components) with I18nSupport {
 
   /**
    * Handles the index action.
    *
    * @return The result to display.
    */
-  def index = SecuredAction.async { implicit request: SecuredRequest[EnvType, AnyContent] =>
+  def index = silhouette.SecuredAction.async { implicit request: SecuredRequest[DefaultEnv, AnyContent] =>
     authInfoRepository.find[GoogleTotpInfo](request.identity.loginInfo).map { totpInfoOpt =>
-      Ok(home(request.identity, totpInfoOpt))
+      Ok(views.html.mainheroes(request.identity, totpInfoOpt))
     }
   }
 
@@ -33,9 +47,9 @@ class ApplicationController @Inject() (
    *
    * @return The result to display.
    */
-  def signOut = SecuredAction.async { implicit request: SecuredRequest[EnvType, AnyContent] =>
-    val result = Redirect(Calls.home)
-    eventBus.publish(LogoutEvent(request.identity, request))
-    authenticatorService.discard(request.authenticator, result)
+  def signOut = silhouette.SecuredAction.async { implicit request: SecuredRequest[DefaultEnv, AnyContent] =>
+    val result = Redirect(routes.ApplicationController.index())
+    silhouette.env.eventBus.publish(LogoutEvent(request.identity, request))
+    silhouette.env.authenticatorService.discard(request.authenticator, result)
   }
 }
