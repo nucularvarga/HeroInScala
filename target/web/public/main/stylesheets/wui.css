@@ -1,0 +1,102 @@
+
+
+/* The navbar container */
+.topnav {
+    overflow: hidden;
+    background-color: #333;
+    padding: 0px 0px 0px 10px;
+}
+
+/* Navbar links */
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Links - change color on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+.topnav .a:focus {
+    border-bottom-color: rgba(255, 255, 255, .25);
+}
+
+.grid-item {
+    padding: 0px;
+    font-size: 0px;
+    text-align: center;
+}
+
+.buttons-tray {
+    margin: auto;
+    border: 3px peru;
+    padding: 10px;
+}
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 768px) {
+    .sidenav {
+        height: auto;
+    }
+
+    .img2 {
+        display: block;
+        width: 48px;
+        height: 48px;
+    }
+
+}
+@media screen and (max-width: 484px) {
+    .sidenav {
+        height: auto;
+    }
+
+    .img2 {
+        display: block;
+        width: 32px;
+        height: 32px;
+    }
+}
+
+/*sideNav*/
+.sidenav {
+    background-color: #f1f1f1;
+    margin-top: 25px;
+}
+
+.side-nav-big {
+    padding-top: 0px;
+}
+
+
+.classWithPad {padding:10px;}
+
+.custom {
+    width: 100px !important;
+}
+
+.container-fluid {
+    text-align: center;
+}
+
+.responsive-width {
+    font-size: 1.0vw;
+}
+
+.img2 {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+.footer {
+    position: fixed;
+    padding: 10px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+

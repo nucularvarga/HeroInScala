@@ -1,27 +1,24 @@
-@(controller:de.htwg.se.heroes.controllerComponent.ControllerInterface)
-    @size= @{ 9 }
-    @toScalar(house:Int, cell:Int)=@{ (house+3*cell).toString}
-    @cellType(x:Int, y:Int)= @{
-        import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.HeroCell
-        import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.Leer
-        import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.Stop
-        import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.GoldCell
-        import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.EnemyCell
-        controller.getMatrixCell(x,y) match {
-            case f:HeroCell => "hero.png"
-            case Leer() => "grass.jpg"
-            case Stop() => "berg.jpg"
-            case GoldCell() => "gold.jpg"
-            case f: EnemyCell => "drake.jpg"
-            //case f: MeleeSoldier => "lich.jpg"
-            //case f: RangeSoldier => "gold.jpg"
-        }
-    }
+@import play.api.i18n.Messages
+@import play.api.mvc.RequestHeader
+@import org.webjars.play.WebJarsUtil
+@import controllers.AssetsFinder
+@import play.api.data._
+@import forms.TotpSetupForm.Data
+@import com.mohiva.play.silhouette.impl.providers.GoogleTotpCredentials
+@import com.mohiva.play.silhouette.impl.providers.GoogleTotpInfo
+
+@(controller:de.htwg.se.heroes.controllerComponent.ControllerInterface, user: models.User, totpInfoOpt: Option[GoogleTotpInfo], totpDataOpt: Option[(Form[Data], GoogleTotpCredentials)] = None)(implicit request: RequestHeader,
+        messages: Messages, webJarsUtil: WebJarsUtil, assets: AssetsFinder)
+
+@implicitFieldConstructor = @{
+    b4.vertical.fieldConstructor()
+}
+
 
 @main("heroes"){
-    <script src='@routes.Assets.versioned("javascripts/vue.js")'></script>
-    <script src='@routes.Assets.versioned("javascripts/heroesVue.js")'></script>
-    <script src='@routes.Assets.versioned("stylesheets/wui.css")'></script>
+    <script src='@assets.path("javascripts/vue.js")'></script>
+    <script src='@assets.path("javascripts/heroesVue.js")'></script>
+    <script src='@assets.path("stylesheets/wui.css")'></script>
     <div id="heroes-game" class="pagecontainer">
 
         <heroes-field></heroes-field>

@@ -1,0 +1,4 @@
+[error] C:\Users\Janko\IdeaProject\play-silhouette-seed\heroesLib\src\main\scala\de\htwg\se\heroes\main.scala:6:8: not found: object javafx
+[error] import javafx.embed.swing.JFXPanel
+[error]        ^
+[error] one error found

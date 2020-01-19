@@ -1,0 +1,4 @@
+[error] C:\Users\Janko\IdeaProject\play-silhouette-seed\app\controllers\TotpController.scala:41:26: could not find implicit value for parameter webJarsUtil: org.webjars.play.WebJarsUtil
+[error]       Ok(views.html.index(user, totpInfoOpt, Some((formData, credentials))))
+[error]                          ^
+[error] one error found

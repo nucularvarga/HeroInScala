@@ -1,0 +1,3 @@
+[error] [Error] C:\Users\Janko\IdeaProject\play-silhouette-seed\app\views\heroes.scala.html:106
+[error] }: Expected '*@' but found 'EOF'
+[error] (Compile / twirlCompileTemplates) Twirl compilation failed
