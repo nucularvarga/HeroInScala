@@ -3,26 +3,33 @@ package de.htwg.se.heroes.model.fileIoComponent.fileIoXmlImpl
 import com.google.inject.Guice
 import de.htwg.se.heroes.HeroesModule
 import net.codingwell.scalaguice.InjectorExtensions._
-import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.{ EnemyCell, HeroCell, Leer, Stop }
-import de.htwg.se.heroes.model.fieldComponent.{ ArenaInterface, FieldInterface }
+import de.htwg.se.heroes.model.fieldComponent.fieldBaseImpl.{EnemyCell, HeroCell, Leer, Stop}
+import de.htwg.se.heroes.model.fieldComponent.{ArenaInterface, FieldInterface}
 import de.htwg.se.heroes.model.fileIoComponent.FileIOInterface
 import de.htwg.se.heroes.model.playerComponent.PlayerListInterface
 import de.htwg.se.heroes.model.playerComponent.playerListBaseImpl.Player
 import de.htwg.se.heroes.model.soldier.SoldierInterface
 import java.io._
+
 import de.htwg.se.heroes.model.soldier.soldierBaseImpl.Soldier
+import play.api.libs.json.{JsObject, Json}
 
 import scala.collection.immutable.ListMap
-import scala.xml.{ Elem, PrettyPrinter }
+import scala.xml.{Elem, PrettyPrinter}
 
-class FileIO extends FileIOInterface {
+class FileIO extends FileIOInterface{
 
   //override def load_Arena: ArenaInterface = ???
+
+  def fieldToJson(field: FieldInterface): JsObject = {
+    Json.obj()
+  }
 
   override def load_Field: FieldInterface = {
     val file = scala.xml.XML.loadFile("field.xml")
     load_Field_file(file)
   }
+
 
   def load_Field_file(file: Elem): FieldInterface = {
     var field: FieldInterface = null
@@ -36,7 +43,7 @@ class FileIO extends FileIOInterface {
       val row: Int = (cell \ "@row").text.toInt
       val col: Int = (cell \ "@col").text.toInt
       val value = (cell \ "@typ").text.toString
-      val typ = value match {
+      val typ = value match  {
         case " " => Leer()
         case "X" => Stop()
         case "F" => EnemyCell(5)
@@ -61,14 +68,14 @@ class FileIO extends FileIOInterface {
     playlist = injector.instance[PlayerListInterface]
 
     val playerNodes = (file \\ "playerinfo" \\ "player")
-    for (player <- playerNodes) {
+    for (player <- playerNodes ) {
       val name: String = (player \ "@name").text.toString
       val gold: Int = (player \ "@gold").text.toInt
       val strength: Int = (player \ "@strength").text.toInt
       val x: Int = (player \ "@x").text.toInt
       val y: Int = (player \ "@y").text.toInt
 
-      playlist = playlist.addPlayer(name, gold, strength, new ListMap[Soldier, Int], x, y)
+      playlist = playlist.addPlayer(name, gold, strength, new ListMap[Soldier, Int],x,y)
     }
     playlist
   }
@@ -87,10 +94,10 @@ class FileIO extends FileIOInterface {
   def fieldToXml(field: FieldInterface) = {
     <field size={ field.size.toString }>
       {
-        for {
-          row <- 0 until field.size
-          col <- 0 until field.size
-        } yield cellToXml(field, row, col)
+      for {
+        row <- 0 until field.size
+        col <- 0 until field.size
+      } yield cellToXml(field, row, col)
       }
     </field>
   }
@@ -100,40 +107,41 @@ class FileIO extends FileIOInterface {
   }
 
   def playerListToXml(playlist: PlayerListInterface) = {
-    <playerList turn={ playlist.getTurn.toString } amount={ playlist.getSize.toString }>
+    <playerList turn={ playlist.getTurn.toString } amount ={ playlist.getSize.toString} >
       {
-        var unitVector: Vector[SoldierInterface] = Vector.empty
-        var amountVector: Vector[Int] = Vector.empty
-        <playerinfo>
-          {
-            for {
-              player <- 0 until playlist.getSize
-            } yield {
-              <player name={ playlist.getPlayer(player).name } gold={ playlist.getPlayer(player).gold.toString } strength={ playlist.getPlayer(player).strength.toString } x={ playlist.getPlayer(player).x.toString } y={ playlist.getPlayer(player).y.toString }>
-              </player>
-            }
-          }
-        </playerinfo>
+      var unitVector: Vector[SoldierInterface] = Vector.empty
+      var amountVector: Vector[Int] = Vector.empty
+      <playerinfo>
+        {
+        for {
+          player <- 0 until playlist.getSize
+        } yield {
+          <player name={playlist.getPlayer(player).name} gold={playlist.getPlayer(player).gold.toString}
+                  strength={playlist.getPlayer(player).strength.toString} x={playlist.getPlayer(player).x.toString}
+                  y={playlist.getPlayer(player).y.toString}>
+          </player>
+        }
+        }
+      </playerinfo>
         <Units>
-          {
-            for {
-              player <- 0 until playlist.getSize
-            } yield {
-              unitVector = Vector.empty
-              amountVector = Vector.empty
-              for (e <- playlist.getPlayer(player).units) unitVector = unitVector :+ e._1
-              for (e <- playlist.getPlayer(player).units) amountVector = amountVector :+ e._2
-              for {
-                unit <- unitVector.indices
-              } yield {
-                <unit unit={ unitVector(unit).toString } amount={ amountVector(unit).toString } cost={ unitVector(unit).getCost.toString } strength={ unitVector(unit).getStrength.toString }></unit>
-              }
-            }
+          {for {
+          player <- 0 until playlist.getSize
+        } yield {
+          unitVector = Vector.empty
+          amountVector = Vector.empty
+          for (e <- playlist.getPlayer(player).units) unitVector = unitVector :+ e._1
+          for (e <- playlist.getPlayer(player).units) amountVector = amountVector :+ e._2
+          for {
+            unit <- unitVector.indices
+          } yield {
+            <unit unit={unitVector(unit).toString} amount={amountVector(unit).toString} cost={unitVector(unit).getCost.toString} strength={unitVector(unit).getStrength.toString}></unit>
           }
+        }}
         </Units>
       }
     </playerList>
   }
+
 
   override def save_PlayerList(playerList: PlayerListInterface): Unit = {
     import java.io._

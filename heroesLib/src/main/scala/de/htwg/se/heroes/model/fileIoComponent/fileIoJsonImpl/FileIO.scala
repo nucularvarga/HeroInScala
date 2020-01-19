@@ -22,6 +22,8 @@ class FileIO extends FileIOInterface{
 
   //override def load_Arena: ArenaInterface = ???
 
+
+
   override def load_Field: FieldInterface = {
     var field: FieldInterface = null
     val sourceFile = Source.fromFile("field.json")
@@ -132,7 +134,7 @@ class FileIO extends FileIOInterface{
             Json.obj(
               "row" -> row,
               "col" -> col,
-              "cell" -> Json.toJson(field.cell(col,row))
+              "cell" -> field.cell(col,row).toString
             )
           }
         )
@@ -169,30 +171,30 @@ class FileIO extends FileIOInterface{
         "turn" -> JsNumber(playlist.getTurn),
         "amount" -> JsNumber(playlist.getSize),
         "players" -> Json.toJson(
-       for {
-        player <- 0 until playlist.getSize
-        } yield {
-         unitVector = Vector.empty
-         amountVector = Vector.empty
-         for (e <- playlist.getPlayer(player).units) unitVector = unitVector :+ e._1
-         for (e <- playlist.getPlayer(player).units) amountVector = amountVector :+ e._2
-          Json.obj(
-            "player" -> Json.toJson(playlist.getPlayer(player)),
-            "units" -> Json.toJson(
-              for {
-                unit <- unitVector.indices
-              } yield {
-                Json.obj(
-                  "unit" -> Json.toJson(UnitWrites.writes(unitVector(unit))),
-                  "amount" -> JsNumber(amountVector(unit)),
-                )
-              }
+          for {
+            player <- 0 until playlist.getSize
+          } yield {
+            unitVector = Vector.empty
+            amountVector = Vector.empty
+            for (e <- playlist.getPlayer(player).units) unitVector = unitVector :+ e._1
+            for (e <- playlist.getPlayer(player).units) amountVector = amountVector :+ e._2
+            Json.obj(
+              "player" -> Json.toJson(playlist.getPlayer(player)),
+              "units" -> Json.toJson(
+                for {
+                  unit <- unitVector.indices
+                } yield {
+                  Json.obj(
+                    "unit" -> Json.toJson(UnitWrites.writes(unitVector(unit))),
+                    "amount" -> JsNumber(amountVector(unit)),
+                  )
+                }
+              )
             )
-          )
-        }
+          }
         )
       )
     )
-    }
+  }
 
 }
