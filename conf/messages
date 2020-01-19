@@ -100,7 +100,7 @@ yahoo = Yahoo
 # Emails
 ##########
 
-email.from = Silhouette <noreply@mohiva.com>
+email.from = heroes <htwg.heroes@gmail.com>
 
 # Sign Up
 email.sign.up.subject = Welcome
