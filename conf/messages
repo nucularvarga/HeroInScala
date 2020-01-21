@@ -38,7 +38,7 @@ totp.lost.your.recovery.codes = Lost your recovery codes?
 totp.contact.support = Contact support
 
 sign.up.account = Sign up for a new account
-sign.in.credentials = Sign in with your credentials
+sign.in.credentials = Prepare yourself Hero!
 sign.in.totp = Two-factor authentication
 sign.in.totp.recovery = Two-factor authentication using recovery code
 
