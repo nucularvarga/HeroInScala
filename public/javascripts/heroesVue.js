@@ -196,7 +196,7 @@ function initbutton(grid) {
             }
         });
     }
-    let app
+    let app;
     let users = 0;
     function connectWebSocket() {
 
@@ -204,7 +204,7 @@ function initbutton(grid) {
         websocket.setTimeout;
 
         websocket.onopen = function (event) {
-            console.log("Connected to Websocket");
+            console.log("Connected to Websocket " + users);
             users = users + 1;
             if(users === 2){
                 app.enableButtons();
