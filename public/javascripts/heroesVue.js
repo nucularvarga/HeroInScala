@@ -38,7 +38,7 @@ function getCellType(col, row, grid) {
         case " ": return "images/grass.jpg";
         case ")": return "images/gold.jpg";
         case "F": return "images/drake.jpg";
-        default: return   "images/gras.jpg";
+        default: return   "images/grass.jpg";
     }
 }
 
@@ -51,7 +51,7 @@ function getCellTypeB(col, row, grid) {
         case " ": return "images/grass.jpg";
         case ")": return "images/gold.jpg";
         case "F": return "images/drake.jpg";
-        default: return   "images/gras.jpg";
+        default: return   "images/grass.jpg";
     }
 }
 
@@ -270,7 +270,7 @@ function initbutton(grid) {
                           </div>    
                     </div>
             </div>
-            <div class="col-sm-0 col-md-auto col-lg-auto col-xl-4 sidenav">
+            <div class="col-sm-auto col-md-auto col-lg-auto col-xl-4 sidenav">
                             <div class="row flex">
                                 <div class="col-sm-6 ">
                                     <hr>
@@ -342,7 +342,7 @@ function initbutton(grid) {
                     case "F":
                         return "./assets/images/drake.jpg";
                     default:
-                        return "./assets/images/lich.jpg";
+                        return "./assets/images/grass.jpg";
                 }
             },
 
