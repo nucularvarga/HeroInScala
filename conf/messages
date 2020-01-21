@@ -7,14 +7,14 @@ invalid.recovery.code = Invalid recovery code!
 access.denied = Access denied!
 could.not.authenticate = Could not authenticate with social provider! Please try again!
 
-home.title = Silhouette - Home
-sign.up.title = Silhouette - Sign Up
-sign.in.title = Silhouette - Sign In
-totp.title = Silhouette - TOTP
-forgot.password.title = Silhouette - Forgot Password
-reset.password.title = Silhouette - Reset Password
-change.password.title = Silhouette - Change Password
-activate.account.title = Silhouette - Activate Account
+home.title = Heroes - Home
+sign.up.title = Heroes - Sign Up
+sign.in.title = Heroes - Sign In
+totp.title = Heroes - TOTP
+forgot.password.title = Heroes - Forgot Password
+reset.password.title = Heroes - Reset Password
+change.password.title = Heroes - Change Password
+activate.account.title = Heroes - Activate Account
 
 toggle.navigation = Toggle navigation
 welcome.signed.in = Welcome, you are now signed in!
