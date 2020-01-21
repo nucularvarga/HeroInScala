@@ -199,7 +199,7 @@ function initbutton(grid) {
 
 
     function connectWebSocket() {
-        let websocket = new WebSocket("ws://localhost:9000/websocket");
+        let websocket = new WebSocket("wss://htwg-heroes.herokuapp.com/websocket");
         websocket.setTimeout;
 
         websocket.onopen = function (event) {
