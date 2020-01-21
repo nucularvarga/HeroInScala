@@ -196,7 +196,7 @@ function initbutton(grid) {
             }
         });
     }
-
+    let app
     let users = 0;
     function connectWebSocket() {
 
@@ -206,6 +206,10 @@ function initbutton(grid) {
         websocket.onopen = function (event) {
             console.log("Connected to Websocket");
             users = users + 1;
+            if(users === 2){
+                app.enableButtons();
+                alert("2spieler da");
+            }
         };
 
         websocket.onclose = function () {
@@ -252,7 +256,7 @@ function initbutton(grid) {
         loadJson();
         connectWebSocket();
 
-        let app = new Vue({
+        app = new Vue({
             el: '#heroes-game'
         });
         app.testcounter = 2;
@@ -280,7 +284,7 @@ function initbutton(grid) {
                                     <hr>
                                     <ul class="flex-column">
                                         <li class ="classWithPad">
-                                            <button class="btn btn-secondary btn-block responsive-width" type="button" id="buttonUp" >MoveUp</button>
+                                            <button :disabled='isDisabled' class="btn btn-secondary btn-block responsive-width" type="button" id="buttonUp" >MoveUp</button>
                                         </li>
                                         <li class ="classWithPad">
                                             <button class="btn btn-secondary btn-block responsive-width" type="button" id="buttonDown">MoveDown</button>
@@ -319,7 +323,8 @@ function initbutton(grid) {
             function() {
                 return {
                     grid: cells(),
-                    counter: 0
+                    counter: 0,
+                    isDisabled: true
                 }
             }
         ,
@@ -327,6 +332,11 @@ function initbutton(grid) {
         methods: {
             toScalar: function(house) {
                 return (house);
+            },
+
+            enableButtons: function() {
+              this.isDisabled = false;
+                alert("2spieler da enable buttons called");
             },
 
             getCellType: function(col, row) {
