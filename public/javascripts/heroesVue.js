@@ -197,13 +197,15 @@ function initbutton(grid) {
         });
     }
 
-
+    let users = 0;
     function connectWebSocket() {
+
         let websocket = new WebSocket("wss://htwg-heroes.herokuapp.com/websocket");
         websocket.setTimeout;
 
         websocket.onopen = function (event) {
             console.log("Connected to Websocket");
+            users = users + 1;
         };
 
         websocket.onclose = function () {
@@ -215,7 +217,7 @@ function initbutton(grid) {
         };
 
         websocket.onmessage = function (e) {
-            if (typeof e.data === "string") {
+            if (typeof e.data === "string" && users === 2) {
 
                 console.log("JSON RECIEVED!");
                 console.log("json websiocket" + e.data);
@@ -226,6 +228,8 @@ function initbutton(grid) {
                             //updateField(9,grid);
                             updateFieldButton(9, grid);
                             //initbutton(grid);
+            } else {
+                alert("Warte auf Spieler");
             }
 
         };
