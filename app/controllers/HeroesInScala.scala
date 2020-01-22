@@ -1,8 +1,8 @@
 package controllers
 
-import akka.actor.{ ActorSystem, _ }
+import akka.actor.{ActorSystem, _}
 import akka.stream.Materializer
-import com.mohiva.play.silhouette.api.{ HandlerResult, Silhouette }
+import com.mohiva.play.silhouette.api.{HandlerResult, Silhouette}
 import com.mohiva.play.silhouette.api.actions.SecuredRequest
 import com.mohiva.play.silhouette.api.repositories.AuthInfoRepository
 import com.mohiva.play.silhouette.impl.providers.GoogleTotpInfo
@@ -11,8 +11,9 @@ import play.api.i18n.I18nSupport
 import de.htwg.se.heroes.controllerComponent.FieldChanged
 import de.htwg.se.heroes.controllerComponent.controllerBaseImpl.gamemode.UIEvent
 import de.htwg.se.heroes.main
+import forms.TotpSetupForm
 
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.{ExecutionContext, Future}
 import javax.inject._
 import models.User
 import org.webjars.play.WebJarsUtil
@@ -21,7 +22,7 @@ import play.api.mvc._
 
 import scala.swing.Reactor
 import scala.collection.mutable.ArrayBuffer
-import scala.util.{ Failure, Success, Try }
+import scala.util.{Failure, Success, Try}
 
 @Singleton
 class HeroesInScala @Inject() (cc: ControllerComponents, silhouette: Silhouette[DefaultEnv],
@@ -77,6 +78,7 @@ class HeroesInScala @Inject() (cc: ControllerComponents, silhouette: Silhouette[
       Ok(gameController.action(UIEvent.MoveDown))
     }
   }
+
 
   def lookUp = silhouette.SecuredAction.async { implicit request: SecuredRequest[DefaultEnv, AnyContent] =>
     authInfoRepository.find[GoogleTotpInfo](request.identity.loginInfo).map { totpInfoOpt =>

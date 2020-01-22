@@ -197,7 +197,7 @@ function initbutton(grid) {
         });
     }
     let app;
-    let users = 0;
+
     function connectWebSocket() {
 
         let websocket = new WebSocket("wss://htwg-heroes.herokuapp.com/websocket");
@@ -205,7 +205,6 @@ function initbutton(grid) {
 
         websocket.onopen = function (event) {
             console.log("Connected to Websocket " + users);
-            users = users + 1;
             if(users === 2){
                 app.enableButtons();
                 alert("2spieler da");
@@ -221,7 +220,7 @@ function initbutton(grid) {
         };
 
         websocket.onmessage = function (e) {
-            if (typeof e.data === "string" && users === 2) {
+            if (typeof e.data === "string") {
 
                 console.log("JSON RECIEVED!");
                 console.log("json websiocket" + e.data);
@@ -232,8 +231,6 @@ function initbutton(grid) {
                             //updateField(9,grid);
                             updateFieldButton(9, grid);
                             //initbutton(grid);
-            } else {
-                alert("Warte auf Spieler");
             }
 
         };
@@ -264,6 +261,31 @@ function initbutton(grid) {
         app.handleClick(app.testcounter);
     });
 
+    Vue.component('heroes-wait', {
+       tempalte: `
+            <button :disabled='isDisabled' class="btn btn-secondary btn-block responsive-width" type="button" id="htwg-heroes.herokuapp.com/" >Next</button> 
+        `,
+        data:
+            function() {
+                return {
+                    isDisabled: true,
+                    users: 0
+                }
+            }
+        ,
+        methods: {
+            enableButtons: function () {
+                this.isDisabled = false;
+            },
+
+            adduser: function () {
+                this.users += 1;
+            }
+        }
+});
+
+
+
     Vue.component('heroes-field', {
         template: `
         <div class = "b-container">
@@ -284,7 +306,7 @@ function initbutton(grid) {
                                     <hr>
                                     <ul class="flex-column">
                                         <li class ="classWithPad">
-                                            <button :disabled='isDisabled' class="btn btn-secondary btn-block responsive-width" type="button" id="buttonUp" >MoveUp</button>
+                                            <button class="btn btn-secondary btn-block responsive-width" type="button" id="buttonUp" >MoveUp</button>
                                         </li>
                                         <li class ="classWithPad">
                                             <button class="btn btn-secondary btn-block responsive-width" type="button" id="buttonDown">MoveDown</button>
@@ -324,7 +346,8 @@ function initbutton(grid) {
                 return {
                     grid: cells(),
                     counter: 0,
-                    isDisabled: true
+                    isDisabled: true,
+                    users: 0
                 }
             }
         ,
@@ -337,6 +360,11 @@ function initbutton(grid) {
             enableButtons: function() {
               this.isDisabled = false;
                 alert("2spieler da enable buttons called");
+            },
+
+            adduser: function() {
+                this.users += 1;
+                alert("adduser");
             },
 
             getCellType: function(col, row) {
