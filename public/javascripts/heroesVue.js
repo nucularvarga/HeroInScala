@@ -289,7 +289,7 @@ function initbutton(grid) {
     Vue.component('heroes-field', {
         template: `
         <div class = "b-container">
-            <div class="b-col-sm-12 b-ol-md-auto b-col-lg-auto b-col-xl-8">
+            <div class="b-col-sm-8 b-ol-md-8 b-col-lg-8 b-col-xl-8">
                      <div class="container-fluid" id = "gr">
                         <div v-for="n,col in grid">
                             <div class="row">
@@ -300,7 +300,7 @@ function initbutton(grid) {
                           </div>    
                     </div>
             </div>
-            <div class="col-sm-0 col-md-auto col-lg-auto col-xl-4 sidenav">
+            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 sidenav">
                             <div class="row flex">
                                 <div class="col-sm-6 ">
                                     <hr>
