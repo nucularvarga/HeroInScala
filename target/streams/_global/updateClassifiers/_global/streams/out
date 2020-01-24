@@ -1,0 +1,4 @@
+[debug] "not up to date. inChanged = false, force = false
+[debug] Updating ProjectRef(uri("file:/C:/Users/Janko/IdeaProject/HeroInScala/"), "root")...
+[debug] Done updating ProjectRef(uri("file:/C:/Users/Janko/IdeaProject/HeroInScala/"), "root")
+[warn] There may be incompatibilities among your library dependencies; run 'evicted' to see detailed eviction warnings.

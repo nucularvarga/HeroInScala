@@ -1,0 +1,3 @@
+[info] Formatting 39 Scala sources ProjectRef(uri("file:/C:/Users/Janko/IdeaProject/HeroInScala/"), "heroesLib")(compile) ...
+[warn] Scalariform parser error for C:\Users\Janko\IdeaProject\HeroInScala\heroesLib\src\main\scala\de\htwg\se\heroes\model\fileIoComponent\fileIoJsonImpl\FileIO.scala: illegal start of simple expression: Token(RPAREN,),3547,))
+[info] Reformatted 5 Scala sources ProjectRef(uri("file:/C:/Users/Janko/IdeaProject/HeroInScala/"), "heroesLib")(compile).

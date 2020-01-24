@@ -38,7 +38,7 @@ function getCellType(col, row, grid) {
         case " ": return "images/grass.jpg";
         case ")": return "images/gold.jpg";
         case "F": return "images/drake.jpg";
-        default: return   "images/gras.jpg";
+        default: return   "images/grass.jpg";
     }
 }
 
@@ -51,7 +51,7 @@ function getCellTypeB(col, row, grid) {
         case " ": return "images/grass.jpg";
         case ")": return "images/gold.jpg";
         case "F": return "images/drake.jpg";
-        default: return   "images/gras.jpg";
+        default: return   "images/grass.jpg";
     }
 }
 
@@ -196,14 +196,19 @@ function initbutton(grid) {
             }
         });
     }
-
+    let app;
 
     function connectWebSocket() {
-        let websocket = new WebSocket("ws://localhost:9000/websocket");
+
+        let websocket = new WebSocket("wss://htwg-heroes.herokuapp.com/websocket");
         websocket.setTimeout;
 
         websocket.onopen = function (event) {
-            console.log("Connected to Websocket");
+            console.log("Connected to Websocket " + users);
+            if(users === 2){
+                app.enableButtons();
+                alert("2spieler da");
+            }
         };
 
         websocket.onclose = function () {
@@ -248,7 +253,7 @@ function initbutton(grid) {
         loadJson();
         connectWebSocket();
 
-        let app = new Vue({
+        app = new Vue({
             el: '#heroes-game'
         });
         app.testcounter = 2;
@@ -256,10 +261,35 @@ function initbutton(grid) {
         app.handleClick(app.testcounter);
     });
 
+    Vue.component('heroes-wait', {
+       tempalte: `
+            <button :disabled='isDisabled' class="btn btn-secondary btn-block responsive-width" type="button" id="htwg-heroes.herokuapp.com/" >Next</button> 
+        `,
+        data:
+            function() {
+                return {
+                    isDisabled: true,
+                    users: 0
+                }
+            }
+        ,
+        methods: {
+            enableButtons: function () {
+                this.isDisabled = false;
+            },
+
+            adduser: function () {
+                this.users += 1;
+            }
+        }
+});
+
+
+
     Vue.component('heroes-field', {
         template: `
         <div class = "b-container">
-            <div class="b-col-sm-12 b-ol-md-auto b-col-lg-auto b-col-xl-8">
+            <div class="b-col-sm-12 b-ol-md-auto b-col-lg-auto b-col-xl-auto">
                      <div class="container-fluid" id = "gr">
                         <div v-for="n,col in grid">
                             <div class="row">
@@ -270,7 +300,7 @@ function initbutton(grid) {
                           </div>    
                     </div>
             </div>
-            <div class="col-sm-0 col-md-auto col-lg-auto col-xl-4 sidenav">
+            <div class="col-sm-0 col-md-auto col-lg-auto col-xl-auto sidenav">
                             <div class="row flex">
                                 <div class="col-sm-6 ">
                                     <hr>
@@ -315,7 +345,9 @@ function initbutton(grid) {
             function() {
                 return {
                     grid: cells(),
-                    counter: 0
+                    counter: 0,
+                    isDisabled: true,
+                    users: 0
                 }
             }
         ,
@@ -323,6 +355,16 @@ function initbutton(grid) {
         methods: {
             toScalar: function(house) {
                 return (house);
+            },
+
+            enableButtons: function() {
+              this.isDisabled = false;
+                alert("2spieler da enable buttons called");
+            },
+
+            adduser: function() {
+                this.users += 1;
+                alert("adduser");
             },
 
             getCellType: function(col, row) {
@@ -342,7 +384,7 @@ function initbutton(grid) {
                     case "F":
                         return "./assets/images/drake.jpg";
                     default:
-                        return "./assets/images/lich.jpg";
+                        return "./assets/images/grass.jpg";
                 }
             },
 
